@@ -49,15 +49,15 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/lykegenes/laravel-datagrid-builder.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/thephpleague/laravel-datagrid-builder/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/thephpleague/laravel-datagrid-builder.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/thephpleague/laravel-datagrid-builder.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/league/laravel-datagrid-builder.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/lykegenes/laravel-datagrid-builder/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/lykegenes/laravel-datagrid-builder.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/lykegenes/laravel-datagrid-builder.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/lykegenes/laravel-datagrid-builder.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/lykegenes/laravel-datagrid-builder
-[link-travis]: https://travis-ci.org/thephpleague/laravel-datagrid-builder
-[link-scrutinizer]: https://scrutinizer-ci.com/g/thephpleague/laravel-datagrid-builder/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/thephpleague/laravel-datagrid-builder
-[link-downloads]: https://packagist.org/packages/league/laravel-datagrid-builder
+[link-travis]: https://travis-ci.org/lykegenes/laravel-datagrid-builder
+[link-scrutinizer]: https://scrutinizer-ci.com/g/lykegenes/laravel-datagrid-builder/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/lykegenes/laravel-datagrid-builder
+[link-downloads]: https://packagist.org/packages/lykegenes/laravel-datagrid-builder
 [link-author]: https://github.com/Lykegenes
 [link-contributors]: ../../contributors
