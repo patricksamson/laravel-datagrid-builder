@@ -29,7 +29,7 @@ class DatagridBuilderServiceProvider extends ServiceProvider
 		});
 	}
 
-	protected function registerFormHelper()
+	protected function registerDatagridHelper()
 	{
 		$this->app->bindShared('laravel-datagrid-helper', function ($app)
 		{

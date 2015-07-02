@@ -1,4 +1,4 @@
-# laravel-bootgrid
+# Laravel Datagrid Builder
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -15,7 +15,7 @@ PSRs you support to avoid any confusion with users and contributors.
 Via Composer
 
 ``` bash
-$ composer require lykegenes/laravel-bootgrid
+$ composer require lykegenes/laravel-datagrid-builder
 ```
 
 ## Usage
@@ -39,30 +39,25 @@ $ composer test
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-## Security
-
-If you discover any security related issues, please email patricksamson236@gmail.com instead of using the issue tracker.
-
 ## Credits
 
 - [Patrick Samson][link-author]
-- [All Contributors][link-contributors]
 
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/league/laravel-bootgrid.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/lykegenes/laravel-datagrid-builder.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/thephpleague/laravel-bootgrid/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/thephpleague/laravel-bootgrid.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/thephpleague/laravel-bootgrid.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/league/laravel-bootgrid.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/thephpleague/laravel-datagrid-builder/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/thephpleague/laravel-datagrid-builder.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/thephpleague/laravel-datagrid-builder.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/league/laravel-datagrid-builder.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/league/laravel-bootgrid
-[link-travis]: https://travis-ci.org/thephpleague/laravel-bootgrid
-[link-scrutinizer]: https://scrutinizer-ci.com/g/thephpleague/laravel-bootgrid/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/thephpleague/laravel-bootgrid
-[link-downloads]: https://packagist.org/packages/league/laravel-bootgrid
+[link-packagist]: https://packagist.org/packages/lykegenes/laravel-datagrid-builder
+[link-travis]: https://travis-ci.org/thephpleague/laravel-datagrid-builder
+[link-scrutinizer]: https://scrutinizer-ci.com/g/thephpleague/laravel-datagrid-builder/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/thephpleague/laravel-datagrid-builder
+[link-downloads]: https://packagist.org/packages/league/laravel-datagrid-builder
 [link-author]: https://github.com/Lykegenes
 [link-contributors]: ../../contributors
