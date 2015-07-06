@@ -13,7 +13,7 @@ PSRs you support to avoid any confusion with users and contributors.
 Via Composer
 
 ``` bash
-$ composer require lykegenes/laravel-datagrid-builder
+$ composer require Lykegenes/laravel-datagrid-builder
 ```
 
 ## Usage
@@ -51,7 +51,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-downloads]: https://img.shields.io/packagist/dt/lykegenes/laravel-datagrid-builder.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/lykegenes/laravel-datagrid-builder
-[link-travis]: https://travis-ci.org/lykegenes/laravel-datagrid-builder
+[link-travis]: https://travis-ci.org/Lykegenes/laravel-datagrid-builder
 [link-downloads]: https://packagist.org/packages/lykegenes/laravel-datagrid-builder
 [link-author]: https://github.com/Lykegenes
 [link-contributors]: ../../contributors
