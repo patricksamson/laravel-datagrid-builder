@@ -13,7 +13,7 @@ PSRs you support to avoid any confusion with users and contributors.
 Via Composer
 
 ``` bash
-$ composer require Lykegenes/laravel-datagrid-builder
+$ composer require lykegenes/laravel-datagrid-builder
 ```
 
 ## Usage
