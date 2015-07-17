@@ -3,6 +3,7 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
+[![Dependencies][ico-versioneye]][link-versioneye]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
@@ -48,10 +49,12 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-version]: https://img.shields.io/packagist/v/lykegenes/laravel-datagrid-builder.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/Lykegenes/laravel-datagrid-builder/master.svg?style=flat-square
+[ico-versioneye]: https://img.shields.io/versioneye/d/php/lykegenes:laravel-datagrid-builder.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/lykegenes/laravel-datagrid-builder.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/lykegenes/laravel-datagrid-builder
 [link-travis]: https://travis-ci.org/Lykegenes/laravel-datagrid-builder
+[link-versioneye]: https://www.versioneye.com/php/lykegenes:laravel-datagrid-builder
 [link-downloads]: https://packagist.org/packages/lykegenes/laravel-datagrid-builder
 [link-author]: https://github.com/Lykegenes
 [link-contributors]: ../../contributors
