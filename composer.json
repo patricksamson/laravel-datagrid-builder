@@ -25,11 +25,11 @@
 		"scrutinizer/ocular": "~1.1"
 	},
 	"autoload": {
-		"psr-0": {
+		"psr-4": {
 			"Lykegenes\\LaravelDatagridBuilder\\": "src"
 		},
 		"files": [
-			"src/helpers.php"
+			"src/RenderingHelpers.php"
 		]
 	},
 	"scripts": {
