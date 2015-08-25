@@ -57,7 +57,7 @@ class DatagridColumn
     {
         $this->name           = $name;
         $this->parent         = $parent;
-        $this->datagridHelper = $this->parent->getFormHelper();
+        $this->datagridHelper = $this->parent->getDatagridHelper();
         $this->setDefaultOptions($options);
     }
 

@@ -486,7 +486,7 @@ class Datagrid
      *
      * @return DatagridHelper
      */
-    public function getFormHelper()
+    public function getDatagridHelper()
     {
         return $this->datagridHelper;
     }
@@ -533,16 +533,6 @@ class Datagrid
         }
 
         return $this;
-    }
-
-    /**
-     * Get current request
-     *
-     * @return \Illuminate\Http\Request
-     */
-    public function getRequest()
-    {
-        return $this->datagridHelper->getRequest();
     }
 
     /**
