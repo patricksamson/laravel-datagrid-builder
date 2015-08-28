@@ -50,6 +50,12 @@
 					"rows": response.data
 				};
 			},
+			converters: {
+		        date: {
+		            from: function (value) { return Date.parse(value); },
+		            to: function (value) { return new Date(value).toISOString().split('T')[0]; }
+		        }
+		    },
 			formatters: {
 				"link": function(column, row)
 				{
