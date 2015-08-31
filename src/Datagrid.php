@@ -429,7 +429,7 @@ class Datagrid
     {
         $this->name = $name;
 
-        $this->rebuilDatagrid();
+        $this->rebuildDatagrid();
 
         return $this;
     }
