@@ -74,20 +74,15 @@ class ApiResponse
      */
     public function makeArray($stuff, $transformer)
     {
-        if ($stuff instanceof Model)
-        {
+        if ($stuff instanceof Model) {
             $data = $this->fromModelInstance($stuff, $transformer);
-        } elseif ($stuff instanceof Builder)
-        {
+        } elseif ($stuff instanceof Builder) {
             $data = $this->fromQuery($stuff, $transformer);
-        } elseif (is_subclass_of($stuff, Model::class))
-        {
+        } elseif (is_subclass_of($stuff, Model::class)) {
             $data = $this->fromModelClass($stuff, $transformer);
-        } elseif (method_exists($stuff, 'toArray'))
-        {
+        } elseif (method_exists($stuff, 'toArray')) {
             $data = $stuff->toArray();
-        } else
-        {
+        } else {
             $data = array($stuff);
         }
 
@@ -102,8 +97,7 @@ class ApiResponse
      */
     public function fromModelClass($model, $transformer)
     {
-        if (is_subclass_of($model, Model::class))
-        {
+        if (is_subclass_of($model, Model::class)) {
             return $this->fromQuery($model::query(), $transformer);
         }
     }
@@ -129,14 +123,12 @@ class ApiResponse
      */
     public function fromQuery(Builder $query, $transformer)
     {
-        if ($this->search != null && method_exists($query, 'search'))
-        {
+        if ($this->search != null && method_exists($query, 'search')) {
             // apply search query
             $query->search($this->search);
         }
 
-        if ($this->sort != null)
-        {
+        if ($this->sort != null) {
             // apply sorting and ordering
             $query->orderBy($this->sort, $this->order);
         }
@@ -144,8 +136,7 @@ class ApiResponse
         // paginate the results
         $paginator = $query->paginate($this->perPage);
 
-        if ($this->include != null)
-        {
+        if ($this->include != null) {
             $this->fractal->parseIncludes($this->include);
         }
 
