@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class DatagridBuilder extends Facade
+class ApiResponse extends Facade
 {
     public static function getFacadeAccessor()
     {
-        return \Lykegenes\LaravelDatagridBuilder\DatagridBuilder::class;
+        return \Lykegenes\LaravelDatagridBuilder\ApiResponse::class;
     }
 }
