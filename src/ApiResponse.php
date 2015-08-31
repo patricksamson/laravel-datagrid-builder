@@ -77,20 +77,16 @@ class ApiResponse
         if ($stuff instanceof Model)
         {
             $data = $this->fromModelInstance($stuff, $transformer);
-        }
-        elseif ($stuff instanceof Builder)
+        } elseif ($stuff instanceof Builder)
         {
             $data = $this->fromQuery($stuff, $transformer);
-        }
-        elseif (is_subclass_of($stuff, Model::class))
+        } elseif (is_subclass_of($stuff, Model::class))
         {
             $data = $this->fromModelClass($stuff, $transformer);
-        }
-        elseif (method_exists($stuff, 'toArray'))
+        } elseif (method_exists($stuff, 'toArray'))
         {
             $data = $stuff->toArray();
-        }
-        else
+        } else
         {
             $data = array($stuff);
         }
@@ -114,7 +110,7 @@ class ApiResponse
 
     /**
      * Transform and serialize a single model instance
-     * @param  mixed $model       An Eloquent Model instance
+     * @param  Model $model       An Eloquent Model instance
      * @param  mixed $transformer A Fractal Transformer class
      * @return array              The transformed and serialized model
      */
@@ -127,7 +123,7 @@ class ApiResponse
 
     /**
      * Transform and serialize the results of an Eloquent query
-     * @param  mixed $query       An Eloquent Query instance
+     * @param  Builder $query       An Eloquent Query instance
      * @param  mixed $transformer A Fractal Transformer class
      * @return array              The transformed and serialized query results
      */

@@ -16,7 +16,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         $this->registerDatagridHelper();
 
-        $this->app->bindShared('datagrid-builder', function ($app)
+        $this->app->bindShared('datagrid-builder', function($app)
         {
 
             return new DatagridBuilder($app, $app['datagrid-helper']);
@@ -25,7 +25,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     protected function registerDatagridHelper()
     {
-        $this->app->bindShared('datagrid-helper', function ($app)
+        $this->app->bindShared('datagrid-helper', function($app)
         {
 
             $configuration = $app['config']->get('datagrid-builder');

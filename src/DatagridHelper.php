@@ -41,7 +41,7 @@ class DatagridHelper
     /**
      * @param string $key
      * @param string $default
-     * @return mixed
+     * @return string
      */
     public function getConfig($key, $default = null)
     {
@@ -107,7 +107,7 @@ class DatagridHelper
     /**
      * Format the label to the proper format
      *
-     * @param $name
+     * @param string $name
      * @return string
      */
     public function formatLabel($name)
