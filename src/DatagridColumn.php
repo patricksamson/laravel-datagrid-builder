@@ -43,7 +43,7 @@ class DatagridColumn
     protected $template;
 
     /**
-     * @var FormHelper
+     * @var DatagridHelper
      */
     protected $datagridHelper;
 

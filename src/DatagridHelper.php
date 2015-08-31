@@ -36,7 +36,6 @@ class DatagridHelper
         $this->view    = $view;
         $this->config  = $config;
         $this->request = $request;
-        //$this->loadCustomTypes();
     }
 
     /**

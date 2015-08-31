@@ -151,9 +151,9 @@ class Datagrid
     }
 
     /**
-     * Add field before another field
+     * Add column before another column
      *
-     * @param string  $name         Name of the field before which new field is added
+     * @param string  $name         Name of the column before which new column is added
      * @param string  $columnName    Column name which will be added
      * @param array   $options
      * @param boolean $modify
@@ -169,8 +169,8 @@ class Datagrid
     }
 
     /**
-     * Add field before another field
-     * @param string  $name         Name of the field after which new field is added
+     * Add column before another column
+     * @param string  $name         Name of the column after which new column is added
      * @param string  $columnName    Column name which will be added
      * @param array   $options
      * @param boolean $modify
@@ -200,7 +200,7 @@ class Datagrid
     }
 
     /**
-     * Remove field with specified name from the datagrid
+     * Remove column with specified name from the datagrid
      *
      * @param $name
      * @return $this
@@ -217,7 +217,7 @@ class Datagrid
     }
 
     /**
-     * Modify existing field. If it doesn't exist, it is added to datagrid
+     * Modify existing column. If it doesn't exist, it is added to datagrid
      *
      * @param        $name
      * @param array  $options
@@ -267,7 +267,7 @@ class Datagrid
     }
 
     /**
-     * Renders the rest of the datagrid up until the specified field name
+     * Renders the rest of the datagrid up until the specified column name
      *
      * @param string $column_name
      * @param bool   $showDatagridEnd
@@ -276,7 +276,7 @@ class Datagrid
      */
     public function renderUntil($column_name, $showDatagridEnd = true, $showColumns = true)
     {
-        $columns = $this->getUnrenderedFields();
+        $columns = $this->getUnrenderedColumns();
 
         $i = 1;
         foreach ($columns as $key => $value)
@@ -294,7 +294,7 @@ class Datagrid
     }
 
     /**
-     * Get single field instance from datagrid object
+     * Get single column instance from datagrid object
      *
      * @param $name
      * @return DatagridColumn
@@ -312,7 +312,7 @@ class Datagrid
     }
 
     /**
-     * Check if datagrid has field
+     * Check if datagrid has column
      *
      * @param $name
      * @return bool
@@ -439,7 +439,7 @@ class Datagrid
     {
         $this->name = $name;
 
-        $this->rebuildForm();
+        $this->rebuilDatagrid();
 
         return $this;
     }
@@ -455,7 +455,7 @@ class Datagrid
     }
 
     /**
-     * Get field dynamically
+     * Get column dynamically
      *
      * @param $name
      * @return DatagridColumn
@@ -492,7 +492,7 @@ class Datagrid
     }
 
     /**
-     * Add any aditional data that field needs (ex. array of choices)
+     * Add any aditional data that column needs (ex. array of choices)
      *
      * @param string $name
      * @param mixed $data
@@ -562,35 +562,24 @@ class Datagrid
     }
 
     /**
-     * Get the model from the options
-     */
-    private function getModelFromOptions()
-    {
-        if (array_get($this->datagridOptions, 'model'))
-        {
-            $this->setModel(array_pull($this->datagridOptions, 'model'));
-        }
-    }
-
-    /**
      * Get all columns that are not rendered
      *
      * @return array
      */
-    protected function getUnrenderedFields()
+    protected function getUnrenderedColumns()
     {
-        $unrenderedFields = [];
+        $unrenderedColumns = [];
 
-        foreach ($this->columns as $field)
+        foreach ($this->columns as $column)
         {
-            if (!$field->isRendered())
+            if (!$column->isRendered())
             {
-                $unrenderedFields[] = $field;
+                $unrenderedColumns[] = $column;
                 continue;
             }
         }
 
-        return $unrenderedFields;
+        return $unrenderedColumns;
     }
 
     /**
@@ -625,7 +614,7 @@ class Datagrid
      */
     protected function setupColumnOptions($name, &$options)
     {
-        if (!$this->getName())
+        if ($this->getName() === null)
         {
             return;
         }
@@ -683,7 +672,7 @@ class Datagrid
     }
 
     /**
-     * If datagrid is named datagrid, modify names to be contained in single key (parent[child_field_name])
+     * If datagrid is named datagrid, modify names to be contained in single key (parent[child_column_name])
      *
      * @param string $name
      * @return string

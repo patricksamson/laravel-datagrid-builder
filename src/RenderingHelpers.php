@@ -43,9 +43,9 @@ if (!function_exists('datagrid_until'))
     }
 }
 
-if (!function_exists('datagrid_label'))
+if (!function_exists('datagrid_column'))
 {
-    function datagrid_label(DatagridColumn $datagridColumn, array $options = [])
+    function datagrid_column(DatagridColumn $datagridColumn, array $options = [])
     {
         return $datagridColumn->render($options, true, false, false);
     }

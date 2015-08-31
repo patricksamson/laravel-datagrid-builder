@@ -37,8 +37,8 @@ class ApiResponse
 
     /**
      * Construct a new ApiResponse instance
-     * @param Request $request The current request instance
-     * @param Manager $fractal A Fractal manager instance
+     * @param \Illuminate\Http\Request $request The current request instance
+     * @param \League\Fractal\Manager $fractal A Fractal manager instance
      */
     public function __construct(Request $request, Manager $fractal)
     {
@@ -127,7 +127,7 @@ class ApiResponse
 
     /**
      * Transform and serialize the results of an Eloquent query
-     * @param  mixed $model       An Eloquent Query instance
+     * @param  mixed $query       An Eloquent Query instance
      * @param  mixed $transformer A Fractal Transformer class
      * @return array              The transformed and serialized query results
      */
