@@ -18,6 +18,7 @@ return [
             'sort'     => 'sort',
             'order'    => 'order',
             'search'   => 'search',
+            'include'  => 'include',
         ],
     ],
 
