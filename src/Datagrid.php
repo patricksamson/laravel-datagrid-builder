@@ -83,8 +83,7 @@ class Datagrid
             {
                 $this->add($name, $column->getType(), $column->getOptions());
             }
-        }
-        else
+        } else
         {
             $this->buildDatagrid();
         }
@@ -97,7 +96,6 @@ class Datagrid
      * Create the DatagridColumn object
      *
      * @param string $name
-     * @param string $type
      * @param array  $options
      * @return DatagridColumn
      */
@@ -185,6 +183,9 @@ class Datagrid
         return $this;
     }
 
+    /**
+     * @param string $columnName
+     */
     private function insertColumnAt($offset, $columnName, $options = [], $modify = false)
     {
         $beforeColumns = array_slice($this->columns, 0, $offset);
@@ -222,7 +223,7 @@ class Datagrid
      * @param        $name
      * @param array  $options
      * @param bool   $overwriteOptions
-     * @return Form
+     * @return Datagrid
      */
     public function modify($name, array $options = [], $overwriteOptions = false)
     {
