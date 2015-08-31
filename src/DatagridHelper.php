@@ -1,4 +1,4 @@
-<?php namespace Lykegenes\LaravelDatagridBuilder;
+<?php namespace Lykegenes\DatagridBuilder;
 
 use Illuminate\Contracts\View\Factory as View;
 use Illuminate\Http\Request;
@@ -84,17 +84,14 @@ class DatagridHelper
      */
     public function prepareAttributes($options)
     {
-        if (!$options)
-        {
+        if (!$options) {
             return null;
         }
 
         $attributes = [];
 
-        foreach ($options as $name => $option)
-        {
-            if ($option !== null)
-            {
+        foreach ($options as $name => $option) {
+            if ($option !== null) {
                 $name         = is_numeric($name) ? $option : $name;
                 $option       = is_bool($option) ? ($option ? 'true' : 'false') : $option;
                 $attributes[] = $name . '="' . $option . '" ';
@@ -112,8 +109,7 @@ class DatagridHelper
      */
     public function formatLabel($name)
     {
-        if (!$name)
-        {
+        if (!$name) {
             return null;
         }
 

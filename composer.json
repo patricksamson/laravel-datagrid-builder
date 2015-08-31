@@ -28,7 +28,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Lykegenes\\LaravelDatagridBuilder\\": "src"
+			"Lykegenes\\DatagridBuilder\\": "src"
 		},
 		"files": [
 			"src/RenderingHelpers.php"

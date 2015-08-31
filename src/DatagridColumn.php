@@ -1,7 +1,7 @@
-<?php namespace Lykegenes\LaravelDatagridBuilder;
+<?php namespace Lykegenes\DatagridBuilder;
 
-use Lykegenes\LaravelDatagridBuilder\Datagrid;
-use Lykegenes\LaravelDatagridBuilder\DatagridHelper;
+use Lykegenes\DatagridBuilder\Datagrid;
+use Lykegenes\DatagridBuilder\DatagridHelper;
 
 /**
  * Class FormField
@@ -68,8 +68,7 @@ class DatagridColumn
      */
     public function render(array $options = [], $showColumn = true)
     {
-        if ($showColumn)
-        {
+        if ($showColumn) {
             $this->rendered = true;
         }
 

@@ -1,4 +1,4 @@
-<?php namespace Lykegenes\LaravelDatagridBuilder;
+<?php namespace Lykegenes\DatagridBuilder;
 
 class Datagrid
 {
@@ -77,14 +77,11 @@ class Datagrid
         $this->rebuilding = true;
         // If datagrid is plain, buildForm method is empty, so we need to take
         // existing columns and add them again
-        if (get_class($this) === 'Lykegenes\LaravelDatagridBuilder\Datagrid')
-        {
-            foreach ($this->columns as $name => $column)
-            {
+        if (get_class($this) === 'Lykegenes\DatagridBuilder\Datagrid') {
+            foreach ($this->columns as $name => $column) {
                 $this->add($name, $column->getType(), $column->getOptions());
             }
-        } else
-        {
+        } else {
             $this->buildDatagrid();
         }
         $this->rebuilding = false;
@@ -118,14 +115,12 @@ class Datagrid
      */
     public function add($name, array $options = [], $modify = false)
     {
-        if (!$name || trim($name) == '')
-        {
+        if (!$name || trim($name) == '') {
             throw new \InvalidArgumentException(
                 'Please provide valid column name for class [' . get_class($this) . ']'
             );
         }
-        if ($this->rebuilding && !$this->has($name))
-        {
+        if ($this->rebuilding && !$this->has($name)) {
             return $this;
         }
         $this->addColumn($this->makeColumn($name, $options), $modify);
@@ -140,8 +135,7 @@ class Datagrid
      */
     protected function addColumn(DatagridColumn $column, $modify = false)
     {
-        if (!$modify && !$this->rebuilding)
-        {
+        if (!$modify && !$this->rebuilding) {
             $this->preventDuplicate($column->getRealName());
         }
         $this->columns[$column->getRealName()] = $column;
@@ -208,8 +202,7 @@ class Datagrid
      */
     public function remove($name)
     {
-        if ($this->has($name))
-        {
+        if ($this->has($name)) {
             unset($this->columns[$name]);
             return $this;
         }
@@ -228,8 +221,7 @@ class Datagrid
     public function modify($name, array $options = [], $overwriteOptions = false)
     {
         // If we don't want to overwrite options, we merge them with old options
-        if ($overwriteOptions === false && $this->has($name))
-        {
+        if ($overwriteOptions === false && $this->has($name)) {
             $options = $this->datagridHelper->mergeOptions(
                 $this->getColumn($name)->getOptions(),
                 $options
@@ -280,10 +272,8 @@ class Datagrid
         $columns = $this->getUnrenderedColumns();
 
         $i = 1;
-        foreach ($columns as $key => $value)
-        {
-            if ($value->getRealName() == $column_name)
-            {
+        foreach ($columns as $key => $value) {
+            if ($value->getRealName() == $column_name) {
                 break;
             }
             $i++;
@@ -302,8 +292,7 @@ class Datagrid
      */
     public function getColumn($name)
     {
-        if ($this->has($name))
-        {
+        if ($this->has($name)) {
             return $this->columns[$name];
         }
 
@@ -463,8 +452,7 @@ class Datagrid
      */
     public function __get($name)
     {
-        if ($this->has($name))
-        {
+        if ($this->has($name)) {
             return $this->getColumn($name);
         }
     }
@@ -512,8 +500,7 @@ class Datagrid
      */
     public function getData($name = null, $default = null)
     {
-        if (is_null($name))
-        {
+        if (is_null($name)) {
             return $this->data;
         }
 
@@ -528,8 +515,7 @@ class Datagrid
      **/
     public function addData(array $data)
     {
-        foreach ($data as $key => $value)
-        {
+        foreach ($data as $key => $value) {
             $this->setData($key, $value);
         }
 
@@ -571,10 +557,8 @@ class Datagrid
     {
         $unrenderedColumns = [];
 
-        foreach ($this->columns as $column)
-        {
-            if (!$column->isRendered())
-            {
+        foreach ($this->columns as $column) {
+            if (!$column->isRendered()) {
                 $unrenderedColumns[] = $column;
                 continue;
             }
@@ -590,8 +574,7 @@ class Datagrid
      */
     protected function preventDuplicate($name)
     {
-        if ($this->has($name))
-        {
+        if ($this->has($name)) {
             throw new \InvalidArgumentException('Column [' . $name . '] already exists in the datagrid ' . get_class($this));
         }
     }
@@ -601,8 +584,7 @@ class Datagrid
      */
     protected function checkIfNamedDatagrid()
     {
-        if ($this->getDatagridOption('name'))
-        {
+        if ($this->getDatagridOption('name')) {
             $this->name = array_pull($this->datagridOptions, 'name', $this->name);
         }
     }
@@ -615,15 +597,13 @@ class Datagrid
      */
     protected function setupColumnOptions($name, &$options)
     {
-        if ($this->getName() === null)
-        {
+        if ($this->getName() === null) {
             return;
         }
 
         $options['real_name'] = $name;
 
-        if (!isset($options['label']))
-        {
+        if (!isset($options['label'])) {
             $options['label'] = $this->datagridHelper->formatLabel($name);
         }
     }
@@ -633,8 +613,7 @@ class Datagrid
      */
     protected function getDataFromOptions()
     {
-        if (array_get($this->datagridOptions, 'data'))
-        {
+        if (array_get($this->datagridOptions, 'data')) {
             $this->addData(array_pull($this->datagridOptions, 'data'));
         }
     }
@@ -680,8 +659,7 @@ class Datagrid
      */
     protected function getColumnName($name)
     {
-        if ($this->getName() !== null)
-        {
+        if ($this->getName() !== null) {
             return $this->getName() . '[' . $name . ']';
         }
 

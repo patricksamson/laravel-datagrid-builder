@@ -1,4 +1,4 @@
-<?php namespace Lykegenes\LaravelDatagridBuilder\Facades;
+<?php namespace Lykegenes\DatagridBuilder\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -6,6 +6,6 @@ class DatagridBuilder extends Facade
 {
     public static function getFacadeAccessor()
     {
-        return \Lykegenes\LaravelDatagridBuilder\DatagridBuilder::class;
+        return \Lykegenes\DatagridBuilder\DatagridBuilder::class;
     }
 }

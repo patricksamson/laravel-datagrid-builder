@@ -1,4 +1,4 @@
-<?php namespace Lykegenes\LaravelDatagridBuilder;
+<?php namespace Lykegenes\DatagridBuilder;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -63,7 +63,7 @@ class ApiResponse
 
     public function make($stuff, $transformer)
     {
-        JsonResponse::create($this->makeArray($stuff, $transformer));
+        return JsonResponse::create($this->makeArray($stuff, $transformer));
     }
 
     /**
