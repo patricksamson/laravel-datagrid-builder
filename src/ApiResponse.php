@@ -112,6 +112,10 @@ class ApiResponse
     {
         $resource = new Item($model, new $transformer);
 
+        if ($this->include != null) {
+            $this->fractal->parseIncludes($this->include);
+        }
+
         return $this->fractal->createData($resource)->toArray();
     }
 
