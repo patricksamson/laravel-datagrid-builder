@@ -45,6 +45,15 @@ class DatagridBuilderTest extends DatagridBuilderTestCase
         $this->assertArrayHasKey('title', $datagrid->getColumns());
         $this->assertArrayHasKey('body', $datagrid->getColumns());
     }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     */
+    public function it_throws_exception_when_creating_datagrid_with_invalid_class()
+    {
+        $this->datagridBuilder->create('invalid');
+    }
 }
 
 class CustomDummyDatagrid extends Datagrid
