@@ -38,11 +38,6 @@ class DatagridColumn
     protected $parent;
 
     /**
-     * @var string
-     */
-    protected $template;
-
-    /**
      * @var DatagridHelper
      */
     protected $datagridHelper;
@@ -75,7 +70,6 @@ class DatagridColumn
         $options = $this->prepareOptions($options);
 
         return $this->datagridHelper->getView()->make(
-            //$this->template,
             'datagrid-builder::column',
             [
                 'name'       => $this->name,
@@ -84,11 +78,6 @@ class DatagridColumn
                 'showColumn' => $showColumn,
             ]
         )->render();
-    }
-
-    protected function getTemplate()
-    {
-        return 'static';
     }
 
     /**

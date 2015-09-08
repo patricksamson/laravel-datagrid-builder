@@ -72,4 +72,16 @@ abstract class DatagridBuilderTestCase extends TestCase
         $this->plainDatagrid   = null;
     }
 
+    protected function getPackageProviders($app)
+    {
+        return ['Lykegenes\DatagridBuilder\ServiceProvider'];
+    }
+
+    protected function getPackageAliases($app)
+    {
+        return [
+            'Acme' => 'Lykegenes\DatagridBuilder\Facades\DatagridBuilder',
+        ];
+    }
+
 }

@@ -84,7 +84,7 @@ class Datagrid
         // existing columns and add them again
         if (get_class($this) === 'Lykegenes\DatagridBuilder\Datagrid') {
             foreach ($this->columns as $name => $column) {
-                $this->add($name, $column->getType(), $column->getOptions());
+                $this->add($name, $column->getOptions());
             }
         } else {
             $this->buildDatagrid();
@@ -160,7 +160,7 @@ class Datagrid
     {
         $offset = array_search($name, array_keys($this->columns));
 
-        $this->insertColumnAt($offset + 1, $columnName, $options, $modify);
+        $this->insertColumnAt($offset, $columnName, $options, $modify);
 
         return $this;
     }
@@ -234,6 +234,35 @@ class Datagrid
         }
 
         return $this->add($name, $options, true);
+    }
+
+    /**
+     * Take another datagrid and add it's columns directly to this datagrid
+     * @param mixed   $class        Datagrid to merge
+     * @param array   $options
+     * @param boolean $modify
+     * @return $this
+     */
+    public function compose($class, array $options = [], $modify = false)
+    {
+        $options['class'] = $class;
+        // If we pass a ready made datagrid just extract the columns
+        if ($class instanceof self) {
+            $columns = $class->getColumns();
+        } elseif (is_string($class)) {
+            // If its a string of a class make it the usual way
+            $options['name'] = $this->name;
+            $form            = $this->datagridBuilder->create($class, $options);
+            $columns         = $form->getColumns();
+        } else {
+            throw new \InvalidArgumentException(
+                "[{$class}] is invalid. Please provide either a full class name or Datagrid"
+            );
+        }
+        foreach ($columns as $column) {
+            $this->addColumn($column, $modify);
+        }
+        return $this;
     }
 
     /**
