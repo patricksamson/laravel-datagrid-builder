@@ -25,8 +25,8 @@ $skeleton = new League\Skeleton();
 echo $skeleton->echoPhrase('Hello, League!');
 ```
 
-[ico-version]: https://img.shields.io/packagist/v/lykegenes/laravel-datagrid-builder.svg?style=flat-square
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/Lykegenes/laravel-datagrid-builder.svg?style=flat-square
+[ico-license]: https://img.shields.io/packagist/l/Lykegenes/laravel-datagrid-builder.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/Lykegenes/laravel-datagrid-builder.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/g/Lykegenes/laravel-datagrid-builder.svg?style=flat-square
 [ico-versioneye]: https://img.shields.io/versioneye/d/php/lykegenes:laravel-datagrid-builder.svg?style=flat-square
