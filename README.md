@@ -18,6 +18,21 @@ Via Composer
 composer require lykegenes/laravel-datagrid-builder
 ```
 
+Then, add this to your Service Providers :
+``` php
+Lykegenes\DatagridBuilder\ServiceProvider::class,
+```
+
+...and this to your Aliases :
+``` php
+'DatagridBuilder' => Lykegenes\DatagridBuilder\Facades\DatagridBuilder::class,
+```
+
+Optionally, you can publish and edit the configuration file :
+``` bash
+php artisan vendor:publish --provider="Lykegenes\DatagridBuilder\ServiceProvider" --tag=config
+```
+
 ## Usage
 
 ``` php
