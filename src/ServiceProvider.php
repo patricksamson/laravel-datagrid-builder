@@ -1,4 +1,4 @@
-<?php namespace Lykegenes\LaravelDatagridBuilder;
+<?php namespace Lykegenes\DatagridBuilder;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -10,14 +10,13 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function register()
     {
-        //$this->commands('Lykegenes\LaravelDatagridBuilder\Console\DatagridMakeCommand');
+        //$this->commands('Lykegenes\DatagridBuilder\Console\DatagridMakeCommand');
         $configPath = __DIR__ . '/../config/config.php';
         $this->mergeConfigFrom($configPath, 'datagrid-builder');
 
         $this->registerDatagridHelper();
 
-        $this->app->bindShared('datagrid-builder', function ($app)
-        {
+        $this->app->bindShared('datagrid-builder', function ($app) {
 
             return new DatagridBuilder($app, $app['datagrid-helper']);
         });
@@ -25,15 +24,14 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     protected function registerDatagridHelper()
     {
-        $this->app->bindShared('datagrid-helper', function ($app)
-        {
+        $this->app->bindShared('datagrid-helper', function ($app) {
 
             $configuration = $app['config']->get('datagrid-builder');
 
             return new DatagridHelper($app['view'], $app['request'], $configuration);
         });
 
-        $this->app->alias('datagrid-helper', 'Lykegenes\LaravelDatagridBuilder\DatagridHelper');
+        $this->app->alias('datagrid-helper', 'Lykegenes\DatagridBuilder\DatagridHelper');
     }
 
     public function boot()

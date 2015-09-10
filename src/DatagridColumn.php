@@ -1,7 +1,7 @@
-<?php namespace Lykegenes\LaravelDatagridBuilder;
+<?php namespace Lykegenes\DatagridBuilder;
 
-use Lykegenes\LaravelDatagridBuilder\Datagrid;
-use Lykegenes\LaravelDatagridBuilder\DatagridHelper;
+use Lykegenes\DatagridBuilder\Datagrid;
+use Lykegenes\DatagridBuilder\DatagridHelper;
 
 /**
  * Class FormField
@@ -38,12 +38,7 @@ class DatagridColumn
     protected $parent;
 
     /**
-     * @var string
-     */
-    protected $template;
-
-    /**
-     * @var FormHelper
+     * @var DatagridHelper
      */
     protected $datagridHelper;
 
@@ -57,7 +52,7 @@ class DatagridColumn
     {
         $this->name           = $name;
         $this->parent         = $parent;
-        $this->datagridHelper = $this->parent->getFormHelper();
+        $this->datagridHelper = $this->parent->getDatagridHelper();
         $this->setDefaultOptions($options);
     }
 
@@ -68,15 +63,13 @@ class DatagridColumn
      */
     public function render(array $options = [], $showColumn = true)
     {
-        if ($showColumn)
-        {
+        if ($showColumn) {
             $this->rendered = true;
         }
 
         $options = $this->prepareOptions($options);
 
         return $this->datagridHelper->getView()->make(
-            //$this->template,
             'datagrid-builder::column',
             [
                 'name'       => $this->name,
@@ -85,11 +78,6 @@ class DatagridColumn
                 'showColumn' => $showColumn,
             ]
         )->render();
-    }
-
-    protected function getTemplate()
-    {
-        return 'static';
     }
 
     /**

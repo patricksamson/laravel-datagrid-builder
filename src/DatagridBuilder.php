@@ -1,4 +1,4 @@
-<?php namespace Lykegenes\LaravelDatagridBuilder;
+<?php namespace Lykegenes\DatagridBuilder;
 
 use Illuminate\Contracts\Container\Container;
 
@@ -21,7 +21,7 @@ class DatagridBuilder
      */
     public function __construct(Container $container, DatagridHelper $datagridHelper)
     {
-        $this->container = $container;
+        $this->container      = $container;
         $this->datagridHelper = $datagridHelper;
     }
 
@@ -35,19 +35,18 @@ class DatagridBuilder
     {
         $class = $this->getNamespaceFromConfig() . $datagridClass;
 
-        if (!class_exists($class))
-        {
+        if (!class_exists($class)) {
             throw new \InvalidArgumentException(
                 'Datagrid class with name ' . $class . ' does not exist.'
             );
         }
 
         $datagrid = $this->container
-            ->make($class)
-            ->setDatagridHelper($this->datagridHelper)
-            ->setDatagridBuilder($this)
-            ->setDatagridOptions($options)
-            ->addData($data);
+                         ->make($class)
+                         ->setDatagridHelper($this->datagridHelper)
+                         ->setDatagridBuilder($this)
+                         ->setDatagridOptions($options)
+                         ->addData($data);
 
         $datagrid->buildDatagrid();
 
@@ -63,8 +62,7 @@ class DatagridBuilder
     {
         $namespace = $this->datagridHelper->getConfig('default_namespace');
 
-        if (!$namespace)
-        {
+        if (!$namespace) {
             return '';
         }
 
@@ -81,10 +79,10 @@ class DatagridBuilder
     public function plain(array $options = [], array $data = [])
     {
         return $this->container
-            ->make('Lykegenes\LaravelDatagridBuilder\Datagrid')
-            ->setDatagridHelper($this->datagridHelper)
-            ->setDatagridBuilder($this)
-            ->setDatagridOptions($options)
-            ->addData($data);
+                    ->make('Lykegenes\DatagridBuilder\Datagrid')
+                    ->setDatagridHelper($this->datagridHelper)
+                    ->setDatagridBuilder($this)
+                    ->setDatagridOptions($options)
+                    ->addData($data);
     }
 }

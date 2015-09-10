@@ -1,4 +1,4 @@
-<?php namespace Lykegenes\LaravelDatagridBuilder;
+<?php namespace Lykegenes\DatagridBuilder;
 
 trait DatagridBuilderTrait
 {
@@ -9,7 +9,7 @@ trait DatagridBuilderTrait
      * @param array  $options Options to pass to the datagrid
      * @param array  $data additional data to pass to the datagrid
      *
-     * @return \Lykegenes\LaravelDatagridBuilder\Datagrid
+     * @return \Lykegenes\DatagridBuilder\Datagrid
      */
     protected function datagrid($name, array $options = [], array $data = [])
     {
@@ -22,7 +22,7 @@ trait DatagridBuilderTrait
      * @param array $options Options to pass to the datagrid
      * @param array $data additional data to pass to the datagrid
      *
-     * @return \Lykegenes\LaravelDatagridBuilder\Datagrid
+     * @return \Lykegenes\DatagridBuilder\Datagrid
      */
     protected function plain(array $options = [], array $data = [])
     {

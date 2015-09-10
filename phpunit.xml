@@ -11,7 +11,7 @@
          syntaxCheck="false"
 >
     <testsuites>
-        <testsuite name="Laravel Datagrid Builder Test Suite">
+        <testsuite name="Lykegenes Test Suite">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>

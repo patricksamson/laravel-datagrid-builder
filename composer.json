@@ -18,19 +18,27 @@
 	],
 	"require": {
 		"illuminate/support": "~5.1",
-		"php" : ">=5.4.0"
+		"illuminate/http": "~5.1",
+        "league/fractal": "^0.12.0",
+        "sofa/eloquence": "~5.1"
 	},
 	"require-dev": {
 		"phpunit/phpunit" : "4.*",
-		"scrutinizer/ocular": "~1.1"
+        "mockery/mockery": "0.9.*",
+        "orchestra/testbench": "~3.0"
 	},
 	"autoload": {
 		"psr-4": {
-			"Lykegenes\\LaravelDatagridBuilder\\": "src"
+			"Lykegenes\\DatagridBuilder\\": "src"
 		},
 		"files": [
 			"src/RenderingHelpers.php"
 		]
+	},
+	"autoload-dev": {
+		"classmap": [
+            "tests/DatagridBuilderTestCase.php"
+        ]
 	},
 	"scripts": {
 		"test": "phpunit"
