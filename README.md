@@ -63,7 +63,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-downloads]: https://img.shields.io/packagist/dt/lykegenes/laravel-datagrid-builder.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/lykegenes/laravel-datagrid-builder
-[link-travis]: https://travis-ci.org/lykegenes/laravel-datagrid-builder
+[link-travis]: https://travis-ci.org/Lykegenes/laravel-datagrid-builder
 [link-scrutinizer]: https://scrutinizer-ci.com/g/lykegenes/laravel-datagrid-builder/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/lykegenes/laravel-datagrid-builder
 [link-downloads]: https://packagist.org/packages/lykegenes/laravel-datagrid-builder
