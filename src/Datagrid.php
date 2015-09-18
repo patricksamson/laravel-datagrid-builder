@@ -1,4 +1,5 @@
-<?php namespace Lykegenes\DatagridBuilder;
+<?php
+namespace Lykegenes\DatagridBuilder;
 
 class Datagrid
 {
@@ -23,6 +24,7 @@ class Datagrid
     protected $datagridOptions = [
         'method' => 'GET',
         'url'    => null,
+        'params' => [],
     ];
 
     /**
@@ -599,7 +601,6 @@ class Datagrid
                     ->with(compact('showStart', 'showColumns', 'showEnd'))
                     ->with('datagridOptions', $datagridOptions)
                     ->with('columns', $columns)
-                    //->with('model', $this->getModel())
                     ->with('exclude', $this->exclude)
                     ->render();
     }
