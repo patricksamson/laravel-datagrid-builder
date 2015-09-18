@@ -22,9 +22,9 @@ class Datagrid
      * @var array
      */
     protected $datagridOptions = [
-        'method' => 'GET',
-        'url'    => null,
-        'params' => [],
+        'method'     => 'GET',
+        'url'        => null,
+        'ajaxParams' => [],
     ];
 
     /**
@@ -444,6 +444,29 @@ class Datagrid
     public function setUrl($url)
     {
         $this->datagridOptions['url'] = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get datagrid ajax request parameters
+     *
+     * @return string
+     */
+    public function getAjaxParams()
+    {
+        return $this->datagridOptions['ajaxParams'];
+    }
+
+    /**
+     * Set datagrid ajax request parameters
+     *
+     * @param array $ajaxParams
+     * @return $this
+     */
+    public function setAjaxParams($ajaxParams)
+    {
+        $this->datagridOptions['ajaxParams'] = $ajaxParams;
 
         return $this;
     }
