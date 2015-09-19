@@ -200,7 +200,6 @@ class DatagridTest extends DatagridBuilderTestCase
         ];
         $this->plainDatagrid->setDatagridOptions($options);
 
-        $this->assertEquals($options, $this->plainDatagrid->getDatagridOptions());
         $this->assertEquals('POST', $this->plainDatagrid->getMethod());
         $this->assertEquals('/url/1', $this->plainDatagrid->getUrl());
         $this->assertEquals(['sort' => 'name'], $this->plainDatagrid->getAjaxParams());
@@ -214,14 +213,10 @@ class DatagridTest extends DatagridBuilderTestCase
         $this->plainDatagrid->setName('test_name');
         $this->plainDatagrid->setAjaxParams(['search' => 'name']);
 
-        $this->assertEquals([
-            'method'     => 'DELETE',
-            'url'        => '/posts/all',
-            'ajaxParams' => ['search' => 'name'],
-        ],
-            $this->plainDatagrid->getDatagridOptions()
-        );
+        $this->assertEquals('DELETE', $this->plainDatagrid->getMethod());
+        $this->assertEquals('/posts/all', $this->plainDatagrid->getUrl());
         $this->assertEquals('test_name', $this->plainDatagrid->getName());
+        $this->assertEquals(['search' => 'name'], $this->plainDatagrid->getAjaxParams());
     }
 
     /** @test */

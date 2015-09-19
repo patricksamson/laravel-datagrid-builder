@@ -25,6 +25,10 @@ class Datagrid
         'method'     => 'GET',
         'url'        => null,
         'ajaxParams' => [],
+        'views'      => [
+            'formatters' => 'datagrid-builder::formatters.default',
+            'converters' => 'datagrid-builder::converters.default',
+        ],
     ];
 
     /**
