@@ -2,7 +2,7 @@
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.min.css">
 
     <div>
-        <table id="grid-data" class="table table-condensed table-hover table-striped">
+        <table id="{{ $name or 'datagrid' }}" class="table table-condensed table-hover table-striped">
             <thead>
                 <tr>
 @endif
@@ -25,7 +25,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.min.js"></script>
 
     <script type="text/javascript">
-        $("#grid-data").bootgrid({
+        $("#{{ $name or 'datagrid' }}").bootgrid({
             ajax: true,
             ajaxSettings: {
                 method: "{!! $datagridOptions['method'] !!}"

@@ -262,8 +262,8 @@ class Datagrid
         } elseif (is_string($class)) {
             // If its a string of a class make it the usual way
             $options['name'] = $this->name;
-            $form            = $this->datagridBuilder->create($class, $options);
-            $columns         = $form->getColumns();
+            $datagrid        = $this->datagridBuilder->create($class, $options);
+            $columns         = $datagrid->getColumns();
         } else {
             throw new \InvalidArgumentException(
                 "[{$class}] is invalid. Please provide either a full class name or Datagrid"
@@ -625,10 +625,9 @@ class Datagrid
     {
         $datagridOptions = $this->datagridHelper->mergeOptions($this->datagridOptions, $options);
 
-        //$this->setupNamedModel();
-
         return $this->datagridHelper->getView()
                     ->make($this->datagridHelper->getConfig('datagrid'))
+                    ->with('name', $this->name)
                     ->with(compact('showStart', 'showColumns', 'showEnd'))
                     ->with('datagridOptions', $datagridOptions)
                     ->with('columns', $columns)
