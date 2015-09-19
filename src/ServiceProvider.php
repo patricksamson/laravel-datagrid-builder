@@ -1,6 +1,9 @@
 <?php
 namespace Lykegenes\DatagridBuilder;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
 
@@ -11,7 +14,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function register()
     {
-        //$this->commands('Lykegenes\DatagridBuilder\Console\DatagridMakeCommand');
         $configPath = __DIR__ . '/../config/config.php';
         $this->mergeConfigFrom($configPath, 'datagrid-builder');
 
