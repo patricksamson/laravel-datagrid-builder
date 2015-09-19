@@ -66,10 +66,10 @@
                 };
             },
             converters: {
-                @include($datagridOptions['views']['converters'])
+                @include($datagridOptions['converters']['view'],['options' => $datagridOptions['converters']['options']])
             },
             formatters: {
-                @include($datagridOptions['views']['formatters'])
+                @include($datagridOptions['formatters']['view'], ['options' => $datagridOptions['formatters']['options']])
             },
             labels: {
                 all: "@lang('datagrid-builder::datagrid-builder.all')",
