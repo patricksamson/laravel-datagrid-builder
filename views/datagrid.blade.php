@@ -31,6 +31,7 @@
                 method: "{!! $datagridOptions['method'] !!}"
             },
             url: "{!! $datagridOptions['url'] !!}",
+            rowCount: {!! json_encode($datagridOptions['rowCount']) !!},
             requestHandler: function(request)
             {
                 var query = {

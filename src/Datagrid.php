@@ -25,6 +25,7 @@ class Datagrid
         'method'     => 'GET',
         'url'        => null,
         'ajaxParams' => [],
+        'rowCount'   => [10, 25, 50],
         'formatters' => [
             'view'    => 'datagrid-builder::formatters.default',
             'options' => [],
