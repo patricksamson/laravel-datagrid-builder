@@ -42,7 +42,7 @@
                     "search": request.searchPhrase
                 }
 
-                @unless ($datagridOptions['ajaxParams'] === null)
+                @unless (empty($datagridOptions['ajaxParams']))
                     $.extend(true, query, {!! json_encode($datagridOptions['ajaxParams']) !!});
                 @endunless
 
