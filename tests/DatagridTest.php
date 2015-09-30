@@ -193,15 +193,16 @@ class DatagridTest extends DatagridBuilderTestCase
     public function it_can_set_datagrid_options_with_array_of_options()
     {
         $options = [
-            'method' => 'POST',
-            'url'    => '/url/1',
-            'class'  => 'datagrid-container',
+            'method'     => 'POST',
+            'url'        => '/url/1',
+            'class'      => 'datagrid-container',
+            'ajaxParams' => ['sort' => 'name'],
         ];
         $this->plainDatagrid->setDatagridOptions($options);
 
-        $this->assertEquals($options, $this->plainDatagrid->getDatagridOptions());
         $this->assertEquals('POST', $this->plainDatagrid->getMethod());
         $this->assertEquals('/url/1', $this->plainDatagrid->getUrl());
+        $this->assertEquals(['sort' => 'name'], $this->plainDatagrid->getAjaxParams());
     }
 
     /** @test */
@@ -210,11 +211,12 @@ class DatagridTest extends DatagridBuilderTestCase
         $this->plainDatagrid->setMethod('DELETE');
         $this->plainDatagrid->setUrl('/posts/all');
         $this->plainDatagrid->setName('test_name');
-        $this->assertEquals(
-            ['method' => 'DELETE', 'url' => '/posts/all'],
-            $this->plainDatagrid->getDatagridOptions()
-        );
+        $this->plainDatagrid->setAjaxParams(['search' => 'name']);
+
+        $this->assertEquals('DELETE', $this->plainDatagrid->getMethod());
+        $this->assertEquals('/posts/all', $this->plainDatagrid->getUrl());
         $this->assertEquals('test_name', $this->plainDatagrid->getName());
+        $this->assertEquals(['search' => 'name'], $this->plainDatagrid->getAjaxParams());
     }
 
     /** @test */

@@ -1,4 +1,5 @@
-<?php namespace Lykegenes\DatagridBuilder;
+<?php
+namespace Lykegenes\DatagridBuilder;
 
 class Datagrid
 {
@@ -21,8 +22,18 @@ class Datagrid
      * @var array
      */
     protected $datagridOptions = [
-        'method' => 'GET',
-        'url'    => null,
+        'method'     => 'GET',
+        'url'        => null,
+        'ajaxParams' => [],
+        'rowCount'   => [10, 25, 50],
+        'formatters' => [
+            'view'    => 'datagrid-builder::formatters.default',
+            'options' => [],
+        ],
+        'converters' => [
+            'view'    => 'datagrid-builder::converters.default',
+            'options' => [],
+        ],
     ];
 
     /**
@@ -252,8 +263,8 @@ class Datagrid
         } elseif (is_string($class)) {
             // If its a string of a class make it the usual way
             $options['name'] = $this->name;
-            $form            = $this->datagridBuilder->create($class, $options);
-            $columns         = $form->getColumns();
+            $datagrid        = $this->datagridBuilder->create($class, $options);
+            $columns         = $datagrid->getColumns();
         } else {
             throw new \InvalidArgumentException(
                 "[{$class}] is invalid. Please provide either a full class name or Datagrid"
@@ -447,6 +458,29 @@ class Datagrid
     }
 
     /**
+     * Get datagrid ajax request parameters
+     *
+     * @return string
+     */
+    public function getAjaxParams()
+    {
+        return $this->datagridOptions['ajaxParams'];
+    }
+
+    /**
+     * Set datagrid ajax request parameters
+     *
+     * @param array $ajaxParams
+     * @return $this
+     */
+    public function setAjaxParams($ajaxParams)
+    {
+        $this->datagridOptions['ajaxParams'] = $ajaxParams;
+
+        return $this;
+    }
+
+    /**
      * @return string|null
      */
     public function getName()
@@ -592,14 +626,12 @@ class Datagrid
     {
         $datagridOptions = $this->datagridHelper->mergeOptions($this->datagridOptions, $options);
 
-        //$this->setupNamedModel();
-
         return $this->datagridHelper->getView()
                     ->make($this->datagridHelper->getConfig('datagrid'))
+                    ->with('name', $this->name)
                     ->with(compact('showStart', 'showColumns', 'showEnd'))
                     ->with('datagridOptions', $datagridOptions)
                     ->with('columns', $columns)
-                    //->with('model', $this->getModel())
                     ->with('exclude', $this->exclude)
                     ->render();
     }

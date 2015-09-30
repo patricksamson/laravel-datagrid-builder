@@ -1,4 +1,5 @@
-<?php namespace Lykegenes\DatagridBuilder;
+<?php
+namespace Lykegenes\DatagridBuilder;
 
 use Illuminate\Contracts\Container\Container;
 

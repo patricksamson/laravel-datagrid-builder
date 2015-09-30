@@ -1,5 +1,9 @@
-<?php namespace Lykegenes\DatagridBuilder;
+<?php
+namespace Lykegenes\DatagridBuilder;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
 
@@ -10,7 +14,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function register()
     {
-        //$this->commands('Lykegenes\DatagridBuilder\Console\DatagridMakeCommand');
         $configPath = __DIR__ . '/../config/config.php';
         $this->mergeConfigFrom($configPath, 'datagrid-builder');
 
@@ -38,11 +41,14 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $configPath = __DIR__ . '/../config/config.php';
         $viewsPath  = __DIR__ . '/../views';
+        $langPath   = __DIR__ . '/../lang';
 
         $this->loadViewsFrom($viewsPath, 'datagrid-builder');
+        $this->loadTranslationsFrom($langPath, 'datagrid-builder');
 
         $this->publishes([$configPath => $this->getConfigPath()], 'config');
         $this->publishes([$viewsPath => $this->getViewsPath()], 'views');
+        $this->publishes([$langPath => $this->getLangPath()], 'lang');
     }
 
     /**
@@ -71,6 +77,16 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     protected function getViewsPath()
     {
         return base_path('resources/views/vendor/datagrid-builder');
+    }
+
+    /**
+     * Get the lang path
+     *
+     * @return string
+     */
+    protected function getLangPath()
+    {
+        return base_path('resources/lang/vendor/datagrid-builder');
     }
 
 }
