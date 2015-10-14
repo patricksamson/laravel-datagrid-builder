@@ -121,7 +121,7 @@ class DatagridTest extends DatagridBuilderTestCase
         // Adds new if provided name doesn't exist
         $this->plainDatagrid->modify('remember');
         $this->assertEquals(
-            ['placeholder' => 'Enter text here...', 'class' => 'form-control'],
+            ['placeholder' => 'Enter text here...', 'class' => 'table-column'],
             $this->plainDatagrid->description->getOption('attr')
         );
         $this->plainDatagrid->modify('description', [

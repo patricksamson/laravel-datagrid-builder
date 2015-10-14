@@ -2,7 +2,7 @@
     <link rel="stylesheet" type="text/css" href="{!! config('datagrid-builder.css_url') !!}">
 
     <div>
-        <table id="{{ $name or 'datagrid' }}" class="table table-condensed table-hover table-striped">
+        <table id="{{ $HTML_id }}" class="{!! config('datagrid-builder.default_css.datagrid_class') !!}">
             <thead>
                 <tr>
 @endif
@@ -25,7 +25,7 @@
     <script src="{!! config('datagrid-builder.js_url') !!}"></script>
 
     <script type="text/javascript">
-        $("#{{ $name or 'datagrid' }}").bootgrid({
+        $("#{{ $HTML_id }}").bootgrid({
             ajax: true,
             ajaxSettings: {
                 method: "{!! $datagridOptions['method'] !!}"
