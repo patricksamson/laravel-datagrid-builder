@@ -22,15 +22,22 @@ class Datagrid
      * @var array
      */
     protected $datagridOptions = [
-        'method'     => 'GET',
-        'url'        => null,
-        'ajaxParams' => [],
-        'rowCount'   => [10, 25, 50],
-        'formatters' => [
+        'HTML_id'        => 'datagrid',
+        'datagrid_view'  => null,
+        'method'         => 'GET',
+        'url'            => null,
+        'ajaxParams'     => [],
+        'rowCount'       => [10, 25, 50],
+        'searchSettings' => [
+            'caseSensitive' => false,
+            'delay'         => 250, // in milliseconds
+            'characters'    => 1,
+        ],
+        'formatters'     => [
             'view'    => 'datagrid-builder::formatters.default',
             'options' => [],
         ],
-        'converters' => [
+        'converters'     => [
             'view'    => 'datagrid-builder::converters.default',
             'options' => [],
         ],
@@ -626,10 +633,16 @@ class Datagrid
     {
         $datagridOptions = $this->datagridHelper->mergeOptions($this->datagridOptions, $options);
 
+        if (isset($datagridOptions['datagrid_view'])) {
+            $datagridView = $datagridOptions['datagrid_view'];
+        } else {
+            $datagridView = $this->datagridHelper->getConfig('views.' . $this->datagridHelper->getConfig('default_datagrid_view'));
+        }
+
         return $this->datagridHelper->getView()
-                    ->make($this->datagridHelper->getConfig('datagrid'))
-                    ->with('name', $this->name)
+                    ->make($datagridView)
                     ->with(compact('showStart', 'showColumns', 'showEnd'))
+                    ->with('HTML_id', $datagridOptions['HTML_id'])
                     ->with('datagridOptions', $datagridOptions)
                     ->with('columns', $columns)
                     ->with('exclude', $this->exclude)

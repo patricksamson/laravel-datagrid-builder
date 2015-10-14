@@ -1,4 +1,5 @@
-<?php namespace Lykegenes\DatagridBuilder;
+<?php
+namespace Lykegenes\DatagridBuilder;
 
 use Lykegenes\DatagridBuilder\Datagrid;
 use Lykegenes\DatagridBuilder\DatagridHelper;
@@ -218,7 +219,7 @@ class DatagridColumn
     }
 
     /**
-     * Default options for field
+     * Default options for column
      *
      * @return array
      */
@@ -235,7 +236,7 @@ class DatagridColumn
     private function allDefaults()
     {
         return [
-            'attr'       => ['class' => $this->datagridHelper->getConfig('defaults.column_class')],
+            'attr'       => ['class' => $this->datagridHelper->getConfig('default_css.column_class')],
             'converter'  => null, // use jQuery Bootgrid's default
             'formatter'  => null, // use jQuery Bootgrid's default
             'label'      => $this->datagridHelper->formatLabel($this->getRealName()),
