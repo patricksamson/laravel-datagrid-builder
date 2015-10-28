@@ -31,18 +31,22 @@
             deferredAjax = $.Deferred();
 
         var rows = []
-        $.getJSON("{!! $datagridOptions['url'] !!}")
-            .done(function( json ) {
-                if (Array.isArray(json.data)) {
-                    json.data.forEach(function(element) {
-                        rows.push(JSON.flatten(element))
-                    })
-                } else {
-                    rows = response.responseJSON.data
-                }
+        var fetchDatagridJSON = function() {
+            rows = []
+            $.getJSON("{!! $datagridOptions['url'] !!}")
+                .done(function( json ) {
+                    if (Array.isArray(json.data)) {
+                        json.data.forEach(function(element) {
+                            rows.push(JSON.flatten(element))
+                        })
+                    } else {
+                        rows = response.responseJSON.data
+                    }
 
-                deferredAjax.resolve()
-            })
+                    deferredAjax.resolve()
+                })
+        }
+        fetchDatagridJSON()
 
         var datagrid = $("#{{ $HTML_id }}")
         .on("initialized.rs.jquery.bootgrid", function (e)
@@ -74,7 +78,18 @@
 
         $.when(deferredBootgrid,deferredAjax).done(function(){
             datagrid.bootgrid("append", rows)
-            rows = undefined
+            rows = []
+
+            $("#{{ $HTML_id }}-header .actions").prepend('<div class="btn-group"><button id="{{ $HTML_id }}-refresh" class="btn btn-default"><span class="icon glyphicon glyphicon-refresh"></span></button></div>')
+
+            $("#{{ $HTML_id }}-refresh").click(function() {
+                deferredAjax = $.Deferred();
+                fetchDatagridJSON()
+                $.when(deferredBootgrid,deferredAjax).done(function(){
+                    datagrid.bootgrid("clear").bootgrid("append", rows)
+                })
+            })
         });
+
     </script>
 @endif

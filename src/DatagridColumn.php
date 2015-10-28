@@ -112,6 +112,7 @@ class DatagridColumn
             'data-formatter'  => $options['formatter'],
             'data-sortable'   => $options['sortable'],
             'data-searchable' => $options['searchable'],
+            'data-visible'    => $options['visible'],
         ]);
 
         return $options;
