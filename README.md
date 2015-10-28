@@ -4,7 +4,7 @@
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Quality Score][ico-code-quality]][link-code-quality]
+[![Codacy Badge][ico-codacy]][link-codacy]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
@@ -59,13 +59,13 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-license]: https://img.shields.io/packagist/l/lykegenes/laravel-datagrid-builder.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/Lykegenes/laravel-datagrid-builder/master.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/lykegenes/laravel-datagrid-builder.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/lykegenes/laravel-datagrid-builder.svg?style=flat-square
+[ico-codacy]: https://api.codacy.com/project/badge/ff95c3e5360649638c61f2834bffd8b2
 [ico-downloads]: https://img.shields.io/packagist/dt/lykegenes/laravel-datagrid-builder.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/lykegenes/laravel-datagrid-builder
 [link-travis]: https://travis-ci.org/Lykegenes/laravel-datagrid-builder
 [link-scrutinizer]: https://scrutinizer-ci.com/g/lykegenes/laravel-datagrid-builder/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/lykegenes/laravel-datagrid-builder
+[link-codacy]: https://www.codacy.com/app/Lykegenes/laravel-datagrid-builder
 [link-downloads]: https://packagist.org/packages/lykegenes/laravel-datagrid-builder
 [link-author]: https://github.com/lykegenes
 [link-contributors]: ../../contributors
