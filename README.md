@@ -35,10 +35,7 @@ php artisan vendor:publish --provider="Lykegenes\DatagridBuilder\ServiceProvider
 
 ## Usage
 
-``` php
-$skeleton = new League\Skeleton();
-echo $skeleton->echoPhrase('Hello, League!');
-```
+See the [WIKI](https://github.com/Lykegenes/laravel-datagrid-builder/wiki)
 
 ## Testing
 
