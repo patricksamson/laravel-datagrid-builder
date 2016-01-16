@@ -27,7 +27,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     protected function registerDatagridHelper()
     {
-        $this->app->bindShared('datagrid-helper', function ($app) {
+        $this->app->singleton('datagrid-helper', function ($app) {
 
             $configuration = $app['config']->get('datagrid-builder');
 
