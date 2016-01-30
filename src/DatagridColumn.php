@@ -1,28 +1,33 @@
 <?php
-
 namespace Lykegenes\DatagridBuilder;
 
+use Lykegenes\DatagridBuilder\Datagrid;
+use Lykegenes\DatagridBuilder\DatagridHelper;
+
 /**
- * Class DatagridColumn.
+ * Class FormField
+ *
+ * @package Kris\LaravelFormBuilder\Fields
  */
 class DatagridColumn
 {
+
     /**
-     * Name of the column.
+     * Name of the column
      *
-     * @var string
+     * @var
      */
     protected $name;
 
     /**
-     * All options for the column.
+     * All options for the column
      *
-     * @var array
+     * @var
      */
     protected $options = [];
 
     /**
-     * Is column rendered.
+     * Is column rendered
      *
      * @var bool
      */
@@ -31,7 +36,7 @@ class DatagridColumn
     /**
      * @var Datagrid
      */
-    protected $parentDatagrid;
+    protected $parent;
 
     /**
      * @var DatagridHelper
@@ -39,23 +44,22 @@ class DatagridColumn
     protected $datagridHelper;
 
     /**
-     * @param          $name
-     * @param          $type
-     * @param Datagrid $parent
-     * @param array    $options
+     * @param             $name
+     * @param             $type
+     * @param Datagrid    $parent
+     * @param array       $options
      */
     public function __construct($name, Datagrid $parent, array $options = [])
     {
-        $this->name = $name;
-        $this->parentDatagrid = $parent;
-        $this->datagridHelper = $this->parentDatagrid->getDatagridHelper();
+        $this->name           = $name;
+        $this->parent         = $parent;
+        $this->datagridHelper = $this->parent->getDatagridHelper();
         $this->setDefaultOptions($options);
     }
 
     /**
      * @param array $options
      * @param bool  $showColumn
-     *
      * @return string
      */
     public function render(array $options = [], $showColumn = true)
@@ -67,36 +71,55 @@ class DatagridColumn
         $options = $this->prepareOptions($options);
 
         return $this->datagridHelper->getView()->make(
-            $options['view'],
+            'datagrid-builder::column',
             [
-                'name' => $this->name,
-                'options' => $options,
-                'colAttrs' => $options['colAttrs'],
+                'name'       => $this->name,
+                'nameKey'    => $this->getNameKey(),
+                'options'    => $options,
                 'showColumn' => $showColumn,
             ]
         )->render();
     }
 
     /**
-     * Prepare options for rendering.
+     * Transform array like syntax to dot syntax
+     *
+     * @param $key
+     * @return mixed
+     */
+    protected function transformKey($key)
+    {
+        return str_replace(['.', '[]', '[', ']'], ['_', '', '.', ''], $key);
+    }
+
+    /**
+     * Prepare options for rendering
      *
      * @param array $options
-     *
      * @return array
      */
     protected function prepareOptions(array $options = [])
     {
-        $options['attr']['data-field'] = $this->name;
+        $helper = $this->datagridHelper;
 
-        $options = $this->datagridHelper->mergeOptions($this->options, $options);
+        $options = $helper->mergeOptions($this->options, $options);
 
-        $options['colAttrs'] = $this->datagridHelper->prepareAttributes($options['attr']);
+        $options['colAttrs'] = $helper->prepareAttributes($options['attr']);
+
+        $options['colSettings'] = $helper->prepareAttributes([
+            'data-column-id'  => $this->name,
+            'data-converter'  => $options['converter'],
+            'data-formatter'  => $options['formatter'],
+            'data-sortable'   => $options['sortable'],
+            'data-searchable' => $options['searchable'],
+            'data-visible'    => $options['visible'],
+        ]);
 
         return $options;
     }
 
     /**
-     * Get name of the column.
+     * Get name of the column
      *
      * @return string
      */
@@ -106,10 +129,9 @@ class DatagridColumn
     }
 
     /**
-     * Set name of the column.
+     * Set name of the column
      *
      * @param string $name
-     *
      * @return $this
      */
     public function setName($name)
@@ -120,7 +142,17 @@ class DatagridColumn
     }
 
     /**
-     * Get column options.
+     * Get dot notation key for columns
+     *
+     * @return string
+     **/
+    public function getNameKey()
+    {
+        return $this->transformKey($this->name);
+    }
+
+    /**
+     * Get column options
      *
      * @return array
      */
@@ -130,7 +162,7 @@ class DatagridColumn
     }
 
     /**
-     * Get single option from options array. Can be used with dot notation ('attr.class').
+     * Get single option from options array. Can be used with dot notation ('attr.class')
      *
      * @param        $option
      * @param string $default
@@ -143,25 +175,23 @@ class DatagridColumn
     }
 
     /**
-     * Set column options.
+     * Set column options
      *
      * @param array $options
-     *
      * @return $this
      */
     public function setOptions($options)
     {
-        $this->options = $this->datagridHelper->mergeOptions($this->options, $options);
+        $this->options = $this->prepareOptions($options);
 
         return $this;
     }
 
     /**
-     * Set single option on the column.
+     * Set single option on the column
      *
      * @param string $name
-     * @param mixed  $value
-     *
+     * @param mixed $value
      * @return $this
      */
     public function setOption($name, $value)
@@ -174,13 +204,13 @@ class DatagridColumn
     /**
      * @return Datagrid
      */
-    public function getParentDatagrid()
+    public function getParent()
     {
-        return $this->parentDatagrid;
+        return $this->parent;
     }
 
     /**
-     * Check if the column is rendered.
+     * Check if the column is rendered
      *
      * @return bool
      */
@@ -190,7 +220,7 @@ class DatagridColumn
     }
 
     /**
-     * Default options for column.
+     * Default options for column
      *
      * @return array
      */
@@ -200,37 +230,42 @@ class DatagridColumn
     }
 
     /**
-     * Defaults used across all columns.
+     * Defaults used across all columns
      *
      * @return array
      */
-    private function sharedDefaults()
+    private function allDefaults()
     {
         return [
-            'attr' => $this->datagridHelper->getConfig('column_defaults.attr'),
-            'converter' => null,
-            'formatter' => null,
-            'label' => $this->datagridHelper->formatLabel($this->name),
-            'order' => null,
-            'searchable' => null,
-            'sortable' => null,
-            'view' => 'datagrid-builder::column',
-            'visible' => null,
+            'attr'       => ['class' => $this->datagridHelper->getConfig('default_css.column_class')],
+            'converter'  => null, // use jQuery Bootgrid's default
+            'formatter'  => null, // use jQuery Bootgrid's default
+            'label'      => $this->datagridHelper->formatLabel($this->getRealName()),
+            'order'      => null, // use jQuery Bootgrid's default
+            'searchable' => null, // use jQuery Bootgrid's default
+            'sortable'   => null, // use jQuery Bootgrid's default
+            'visible'    => null, // use jQuery Bootgrid's default
         ];
     }
 
     /**
-     * Merge all defaults with column specific defaults and set template if passed.
+     * Get real name of the column without form namespace
+     *
+     * @return string
+     */
+    public function getRealName()
+    {
+        return $this->getOption('real_name', $this->name);
+    }
+
+    /**
+     * Merge all defaults with column specific defaults and set template if passed
      *
      * @param array $options
      */
     protected function setDefaultOptions(array $options = [])
     {
-        $this->options = array_merge_recursive(
-            $this->sharedDefaults(),
-            $this->datagridHelper->getConfig('column_defaults'),
-            $this->getDefaults(),
-            $options
-        );
+        $this->options = $this->datagridHelper->mergeOptions($this->allDefaults(), $this->getDefaults());
+        $this->options = $this->prepareOptions($options);
     }
 }

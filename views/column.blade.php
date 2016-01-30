@@ -1,3 +1,3 @@
 @if ($showColumn)
-	<th {!! $colAttrs !!}>{{ $options['label'] }}</th>
+	<th {!! $options['colSettings'] !!} {!! $options['colAttrs'] !!}>{{ $options['label'] }}</th>
 @endif

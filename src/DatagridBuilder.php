@@ -1,11 +1,11 @@
 <?php
-
 namespace Lykegenes\DatagridBuilder;
 
 use Illuminate\Contracts\Container\Container;
 
 class DatagridBuilder
 {
+
     /**
      * @var Container
      */
@@ -22,7 +22,7 @@ class DatagridBuilder
      */
     public function __construct(Container $container, DatagridHelper $datagridHelper)
     {
-        $this->container = $container;
+        $this->container      = $container;
         $this->datagridHelper = $datagridHelper;
     }
 
@@ -32,13 +32,13 @@ class DatagridBuilder
      * @param       $data
      * @return Datagrid
      */
-    public function create($datagridClass, array $options = [])
+    public function create($datagridClass, array $options = [], array $data = [])
     {
-        $class = $this->getNamespaceFromConfig().$datagridClass;
+        $class = $this->getNamespaceFromConfig() . $datagridClass;
 
-        if (! class_exists($class)) {
+        if (!class_exists($class)) {
             throw new \InvalidArgumentException(
-                'Datagrid class with name '.$class.' does not exist.'
+                'Datagrid class with name ' . $class . ' does not exist.'
             );
         }
 
@@ -46,7 +46,8 @@ class DatagridBuilder
                          ->make($class)
                          ->setDatagridHelper($this->datagridHelper)
                          ->setDatagridBuilder($this)
-                         ->setDatagridOptions($options);
+                         ->setDatagridOptions($options)
+                         ->addData($data);
 
         $datagrid->buildDatagrid();
 
@@ -54,7 +55,7 @@ class DatagridBuilder
     }
 
     /**
-     * Get the namespace from the config.
+     * Get the namespace from the config
      *
      * @return string
      */
@@ -62,26 +63,27 @@ class DatagridBuilder
     {
         $namespace = $this->datagridHelper->getConfig('default_namespace');
 
-        if (! $namespace) {
+        if (!$namespace) {
             return '';
         }
 
-        return $namespace.'\\';
+        return $namespace . '\\';
     }
 
     /**
-     * Get instance of the empty datagrid which can be modified.
+     * Get instance of the empty datagrid which can be modified
      *
      * @param array $options
      * @param array $data
      * @return Form
      */
-    public function plain(array $options = [])
+    public function plain(array $options = [], array $data = [])
     {
         return $this->container
                     ->make('Lykegenes\DatagridBuilder\Datagrid')
                     ->setDatagridHelper($this->datagridHelper)
                     ->setDatagridBuilder($this)
-                    ->setDatagridOptions($options);
+                    ->setDatagridOptions($options)
+                    ->addData($data);
     }
 }
