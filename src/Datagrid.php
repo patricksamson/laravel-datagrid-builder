@@ -33,29 +33,6 @@ class Datagrid
             // Data
             'data-url' => null,
             'data-method' => 'GET',
-            'data-cache' => true, // Cache Ajax requests.
-            'data-flat' => true, // requires the "Flat JSON" extension; flattens to a single-level array.
-            'data-data-field' => 'data', // Which JSON attribute contains the data array?
-
-            // Sorting
-            'data-sortable' => true, // False to disable sortable of all columns.
-
-            // Pagination
-            'data-pagination' => true,
-            'data-side-pagination' => 'client', // 'client' or 'server' with Ajax
-            'data-page-size' => 10,
-            'data-page-list' => '[5, 10, 20, 50, All]',
-
-            // Search
-            'data-search' => true,
-            'data-search-time-out' => 250, // Wait for X ms after last input before firing the search.
-
-            // UI
-            'data-locale' => 'en-US',
-            'data-show-refresh' => true,
-            'data-show-toggle' => false, // Toggle for the card view
-            'data-show-columns' => true, // Menu to show/hide columns.
-            'data-show-footer' => false, // A summary footer, for totals and such.
         ],
     ];
 
@@ -176,9 +153,9 @@ class Datagrid
     protected function addColumn(DatagridColumn $column, $modify = false)
     {
         if (! $modify && ! $this->rebuilding) {
-            $this->preventDuplicate($column->getRealName());
+            $this->preventDuplicate($column->getName());
         }
-        $this->columns[$column->getRealName()] = $column;
+        $this->columns[$column->getName()] = $column;
 
         return $this;
     }
@@ -434,6 +411,18 @@ class Datagrid
         $this->getDataFromOptions();
 
         $this->checkIfNamedDatagrid();
+
+        return $this;
+    }
+
+    /**
+     * Loads default options from configuration.
+     *
+     * @return $this
+     */
+    public function initDatagridOptions()
+    {
+        $this->datagridOptions = $this->datagridHelper->mergeOptions($this->datagridHelper->getConfig('datagrid_defaults'), $this->datagridOptions);
 
         return $this;
     }

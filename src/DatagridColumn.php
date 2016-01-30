@@ -19,7 +19,10 @@ class DatagridColumn
      *
      * @var
      */
-    protected $options = [];
+    protected $options = [
+        'view' => 'datagrid-builder::column',
+        'attr' => [],
+    ];
 
     /**
      * Is column rendered.
@@ -128,16 +131,6 @@ class DatagridColumn
     }
 
     /**
-     * Get dot notation key for columns.
-     *
-     * @return string
-     **/
-    public function getNameKey()
-    {
-        return $this->transformKey($this->name);
-    }
-
-    /**
      * Get column options.
      *
      * @return array
@@ -223,25 +216,16 @@ class DatagridColumn
     private function allDefaults()
     {
         return [
-            'attr'       => ['class' => $this->datagridHelper->getConfig('default_css.column_class')],
-            'converter'  => null, // use jQuery Bootgrid's default
-            'formatter'  => null, // use jQuery Bootgrid's default
-            'label'      => $this->datagridHelper->formatLabel($this->getRealName()),
-            'order'      => null, // use jQuery Bootgrid's default
-            'searchable' => null, // use jQuery Bootgrid's default
-            'sortable'   => null, // use jQuery Bootgrid's default
-            'visible'    => null, // use jQuery Bootgrid's default
+            'attr' => $this->datagridHelper->getConfig('column_defaults.attr'),
+            'converter' => null,
+            'formatter' => null,
+            'label' => $this->datagridHelper->formatLabel($this->name),
+            'order' => null,
+            'searchable' => null,
+            'sortable' => null,
+            'view' => $this->datagridHelper->getConfig('column_defaults.view'),
+            'visible' => null,
         ];
-    }
-
-    /**
-     * Get real name of the column without form namespace.
-     *
-     * @return string
-     */
-    public function getRealName()
-    {
-        return $this->getOption('real_name', $this->name);
     }
 
     /**
