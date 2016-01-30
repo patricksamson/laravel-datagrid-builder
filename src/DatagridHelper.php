@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 
 class DatagridHelper
 {
-
     /**
      * @var View
      */
@@ -33,8 +32,8 @@ class DatagridHelper
      */
     public function __construct(View $view, Request $request, array $config = [])
     {
-        $this->view    = $view;
-        $this->config  = $config;
+        $this->view = $view;
+        $this->config = $config;
         $this->request = $request;
     }
 
@@ -84,16 +83,16 @@ class DatagridHelper
      */
     public function prepareAttributes($options)
     {
-        if (!$options) {
-            return null;
+        if ( ! $options) {
+            return;
         }
 
         $attributes = [];
 
         foreach ($options as $name => $option) {
             if ($option !== null) {
-                $name         = is_numeric($name) ? $option : $name;
-                $option       = is_bool($option) ? ($option ? 'true' : 'false') : $option;
+                $name = is_numeric($name) ? $option : $name;
+                $option = is_bool($option) ? ($option ? 'true' : 'false') : $option;
                 $attributes[] = $name . '="' . $option . '" ';
             }
         }
@@ -109,8 +108,8 @@ class DatagridHelper
      */
     public function formatLabel($name)
     {
-        if (!$name) {
-            return null;
+        if ( ! $name) {
+            return;
         }
 
         return ucwords(str_replace('_', ' ', $name));

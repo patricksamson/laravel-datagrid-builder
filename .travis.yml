@@ -1,23 +1,45 @@
 language: php
 
+sudo: false
+
 php:
-  - 5.5
   - 5.6
   - 7.0
   - hhvm
 
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
+env:
+  global:
+    - setup=basic
+    - COMPOSER_DISCARD_CHANGES=true
+    - COMPOSER_NO_INTERACTION=1
+    - COMPOSER_DISABLE_XDEBUG_WARN=1
+
+matrix:
+  include:
+    - php: 5.6
+      env: setup=lowest
+    - php: 5.6
+      env: setup=stable
+
 before_install:
-  - travis_retry composer self-update
+  - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
+  - composer self-update && composer -V
 
 install:
-  - travis_retry composer install --prefer-source --no-interaction
+  - if [[ $setup = 'basic' ]]; then travis_retry composer update --prefer-dist; fi
+  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --prefer-stable; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --prefer-stable --prefer-lowest; fi
 
 script:
-  - if [ "$TRAVIS_PHP_VERSION" == "7.0" ] || [ "$TRAVIS_PHP_VERSION" == "hhvm" ]; then phpunit; fi
-  - if [ "$TRAVIS_PHP_VERSION" != "7.0" ] && [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then phpunit --coverage-text --coverage-clover=coverage.clover; fi
+  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
-after_script:
-  - if [ "$TRAVIS_PHP_VERSION" != "7.0" ] && [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then php vendor/bin/codacycoverage clover coverage.clover; fi
+after_success:
+  - travis_retry php vendor/bin/coveralls
 
 notifications:
   email:

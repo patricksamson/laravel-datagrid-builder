@@ -21,10 +21,10 @@
 		"illuminate/http": "~5.1"
 	},
 	"require-dev": {
-		"phpunit/phpunit" : "4.*",
+		"phpunit/phpunit" : "~5.1",
         "mockery/mockery": "0.9.*",
-        "orchestra/testbench": "~3.0",
-        "codacy/coverage": "dev-master"
+        "orchestra/testbench": "~3.1",
+        "satooshi/php-coveralls": "~1.0"
 	},
 	"autoload": {
 		"psr-4": {
