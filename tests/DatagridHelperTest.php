@@ -2,7 +2,6 @@
 
 class LocaleSwitcherTest extends DatagridBuilderTestCase
 {
-
     /** @test */
     public function it_sets_constructor_dependencies_to_properties()
     {
@@ -34,7 +33,7 @@ class LocaleSwitcherTest extends DatagridBuilderTestCase
     /** @test */
     public function it_creates_html_attributes_from_array_of_options()
     {
-        $options    = ['class' => 'form-control', 'data-id' => 1, 'id' => 'post'];
+        $options = ['class' => 'form-control', 'data-id' => 1, 'id' => 'post'];
         $attributes = $this->datagridHelper->prepareAttributes($options);
         $this->assertEquals(
             'class="form-control" data-id="1" id="post" ',

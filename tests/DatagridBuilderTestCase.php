@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Validation\Factory;
 use Lykegenes\DatagridBuilder\Datagrid;
 use Lykegenes\DatagridBuilder\DatagridBuilder;
 use Lykegenes\DatagridBuilder\DatagridHelper;
@@ -9,7 +8,6 @@ use Orchestra\Testbench\TestCase;
 
 abstract class DatagridBuilderTestCase extends TestCase
 {
-
     /**
      * @var \Illuminate\View\Factory
      */
@@ -49,12 +47,12 @@ abstract class DatagridBuilderTestCase extends TestCase
     {
         parent::setUp();
 
-        $this->view    = $this->app['view'];
+        $this->view = $this->app['view'];
         $this->request = $this->app['request'];
         $this->request->setSession($this->app['session.store']);
-        $this->config = include __DIR__ . '/../config/config.php';
+        $this->config = include __DIR__.'/../config/config.php';
 
-        $this->datagridHelper  = new DatagridHelper($this->view, $this->request, $this->config);
+        $this->datagridHelper = new DatagridHelper($this->view, $this->request, $this->config);
         $this->datagridBuilder = new DatagridBuilder($this->app, $this->datagridHelper);
 
         $this->plainDatagrid = $this->datagridBuilder->plain();
@@ -63,13 +61,13 @@ abstract class DatagridBuilderTestCase extends TestCase
     public function tearDown()
     {
         Mockery::close();
-        $this->view            = null;
-        $this->request         = null;
-        $this->container       = null;
-        $this->config          = null;
-        $this->datagridHelper  = null;
+        $this->view = null;
+        $this->request = null;
+        $this->container = null;
+        $this->config = null;
+        $this->datagridHelper = null;
         $this->datagridBuilder = null;
-        $this->plainDatagrid   = null;
+        $this->plainDatagrid = null;
     }
 
     protected function getPackageProviders($app)
@@ -83,5 +81,4 @@ abstract class DatagridBuilderTestCase extends TestCase
             'Acme' => 'Lykegenes\DatagridBuilder\Facades\DatagridBuilder',
         ];
     }
-
 }
