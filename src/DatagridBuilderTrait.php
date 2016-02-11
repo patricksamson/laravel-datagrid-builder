@@ -1,9 +1,11 @@
-<?php namespace Lykegenes\DatagridBuilder;
+<?php
+
+namespace Lykegenes\DatagridBuilder;
 
 trait DatagridBuilderTrait
 {
     /**
-     * Create a Datagrid instance
+     * Create a Datagrid instance.
      *
      * @param string $name Full class name of the datagrid class
      * @param array  $options Options to pass to the datagrid
@@ -17,7 +19,7 @@ trait DatagridBuilderTrait
     }
 
     /**
-     * Create a plain Datagrid instance
+     * Create a plain Datagrid instance.
      *
      * @param array $options Options to pass to the datagrid
      * @param array $data additional data to pass to the datagrid

@@ -4,7 +4,6 @@ use Lykegenes\DatagridBuilder\Datagrid;
 
 class DatagridBuilderTest extends DatagridBuilderTestCase
 {
-
     /** @test */
     public function it_creates_plain_datagrid_and_sets_options_on_it()
     {

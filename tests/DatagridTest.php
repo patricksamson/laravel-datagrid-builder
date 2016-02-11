@@ -298,17 +298,15 @@ class DatagridTest extends DatagridBuilderTestCase
     /** @test */
     public function it_can_compose_another_datagrids_columns_into_itself()
     {
-        $datagrid       = $this->datagridBuilder->plain();
+        $datagrid = $this->datagridBuilder->plain();
         $customDatagrid = $this->datagridBuilder->create('CustomDummyDatagrid');
         $datagrid
             ->add('name')
-            ->compose($customDatagrid)
-        ;
+            ->compose($customDatagrid);
         $this->assertEquals($datagrid, $datagrid->name->getParent());
         $this->assertEquals(3, count($datagrid->getColumns()));
         $this->assertEquals(true, $datagrid->has('title'));
         $this->assertEquals('title', $datagrid->title->getName());
         $this->assertEquals('title', $datagrid->title->getRealName());
     }
-
 }
