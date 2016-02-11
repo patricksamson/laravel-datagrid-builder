@@ -18,4 +18,6 @@
             </thead>
         </table>
     </div>
+
+    @include('datagrid-builder::formatters.default')
 @endif

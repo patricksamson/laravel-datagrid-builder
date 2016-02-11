@@ -23,6 +23,7 @@ return [
             'data-cache' => true, // Cache Ajax requests.
             'data-flat' => true, // requires the "Flat JSON" extension; flattens to a single-level array.
             'data-data-field' => 'data', // Which JSON attribute contains the data array?
+            'data-id-field' => 'id', // Indicate which field is an identity field.
 
             // Sorting
             'data-sortable' => true, // False to disable sortable of all columns.
