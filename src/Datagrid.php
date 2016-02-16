@@ -322,7 +322,7 @@ class Datagrid
 
         $i = 1;
         foreach ($columns as $key => $value) {
-            if ($value->getRealName() == $column_name) {
+            if ($value->getName() == $column_name) {
                 break;
             }
             $i++;
