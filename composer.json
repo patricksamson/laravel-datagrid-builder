@@ -34,11 +34,6 @@
 			"src/RenderingHelpers.php"
 		]
 	},
-	"autoload-dev": {
-		"classmap": [
-            "tests/DatagridBuilderTestCase.php"
-        ]
-	},
 	"scripts": {
 		"test": "phpunit"
 	},
