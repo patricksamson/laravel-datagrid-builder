@@ -98,9 +98,10 @@ class DatagridColumn
      */
     protected function prepareOptions(array $options = [])
     {
-        $options['attr']['data-field'] = $this->name;
-
         $options = $this->datagridHelper->mergeOptions($this->options, $options);
+
+        $options['attr']['data-field'] = $this->name;
+        $options['attr']['data-title'] = $this->options['label'];
 
         $options['colAttrs'] = $this->datagridHelper->prepareAttributes($options['attr']);
 
@@ -217,14 +218,8 @@ class DatagridColumn
     {
         return [
             'attr' => $this->datagridHelper->getConfig('column_defaults.attr'),
-            'converter' => null,
-            'formatter' => null,
             'label' => $this->datagridHelper->formatLabel($this->name),
-            'order' => null,
-            'searchable' => null,
-            'sortable' => null,
             'view' => $this->datagridHelper->getConfig('column_defaults.view'),
-            'visible' => null,
         ];
     }
 

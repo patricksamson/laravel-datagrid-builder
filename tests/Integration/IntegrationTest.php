@@ -21,6 +21,7 @@ class IntegrationTest extends \Orchestra\Testbench\TestCase
 
         $this->plainDatagrid = $this->builder->plain();
     }
+
     /**
      * Get package providers.
      *
