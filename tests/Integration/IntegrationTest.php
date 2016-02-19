@@ -5,13 +5,19 @@ namespace Lykegenes\DatagridBuilder\TestCase;
 class IntegrationTest extends \Orchestra\Testbench\TestCase
 {
     /**
-     * @var Lykegenes\DatagridBuilder\DatagridBuilder
+     * @var \Lykegenes\DatagridBuilder\DatagridBuilder
      */
     protected $builder;
+
     /**
-     * @var Lykegenes\DatagridBuilder\Datagrid
+     * @var \Lykegenes\DatagridBuilder\Datagrid
      */
     protected $plainDatagrid;
+
+    /**
+     * @var \Lykegenes\DatagridBuilder\Datagrid
+     */
+    protected $classDatagrid;
 
     public function setUp()
     {
@@ -46,6 +52,10 @@ class IntegrationTest extends \Orchestra\Testbench\TestCase
         $app['router']->get('plainDatagrid', function () {
             return datagrid($this->plainDatagrid);
         });
+
+        $app['router']->get('classDatagrid', function () {
+            return datagrid($this->classDatagrid);
+        });
     }
 
     /** @test */
@@ -76,5 +86,26 @@ class IntegrationTest extends \Orchestra\Testbench\TestCase
         $this->visit('plainDatagrid')
             ->see('data-field="column"')
             ->see('data-field="otherColumn"');
+    }
+
+    /** @test */
+    public function testGetDatagridFromClass()
+    {
+        $this->classDatagrid = $this->builder->create(\Lykegenes\DatagridBuilder\TestCase\DummyDatagrid::class);
+
+        $this->assertInstanceOf(\Lykegenes\DatagridBuilder\Datagrid::class, $this->classDatagrid);
+
+        $this->visit('classDatagrid')
+            ->see('data-field="column"')
+            ->see('data-field="otherColumn"');
+    }
+}
+
+class DummyDatagrid extends \Lykegenes\DatagridBuilder\Datagrid
+{
+    public function buildDatagrid()
+    {
+        $this->add('column')
+             ->add('otherColumn');
     }
 }
