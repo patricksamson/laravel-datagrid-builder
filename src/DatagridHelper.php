@@ -1,11 +1,12 @@
-<?php namespace Lykegenes\DatagridBuilder;
+<?php
+
+namespace Lykegenes\DatagridBuilder;
 
 use Illuminate\Contracts\View\Factory as View;
 use Illuminate\Http\Request;
 
 class DatagridHelper
 {
-
     /**
      * @var View
      */
@@ -33,8 +34,8 @@ class DatagridHelper
      */
     public function __construct(View $view, Request $request, array $config = [])
     {
-        $this->view    = $view;
-        $this->config  = $config;
+        $this->view = $view;
+        $this->config = $config;
         $this->request = $request;
     }
 
@@ -65,7 +66,7 @@ class DatagridHelper
     }
 
     /**
-     * Merge options array
+     * Merge options array.
      *
      * @param array $first
      * @param array $second
@@ -77,40 +78,40 @@ class DatagridHelper
     }
 
     /**
-     * Convert array of attributes to html attributes
+     * Convert array of attributes to html attributes.
      *
      * @param $options
      * @return string
      */
     public function prepareAttributes($options)
     {
-        if (!$options) {
-            return null;
+        if (! $options) {
+            return;
         }
 
         $attributes = [];
 
         foreach ($options as $name => $option) {
             if ($option !== null) {
-                $name         = is_numeric($name) ? $option : $name;
-                $option       = is_bool($option) ? ($option ? 'true' : 'false') : $option;
-                $attributes[] = $name . '="' . $option . '" ';
+                $name = is_numeric($name) ? $option : $name;
+                $option = is_bool($option) ? ($option ? 'true' : 'false') : $option;
+                $attributes[] = $name.'="'.$option.'" ';
             }
         }
 
-        return join('', $attributes);
+        return implode('', $attributes);
     }
 
     /**
-     * Format the label to the proper format
+     * Format the label to the proper format.
      *
      * @param string $name
      * @return string
      */
     public function formatLabel($name)
     {
-        if (!$name) {
-            return null;
+        if (! $name) {
+            return;
         }
 
         return ucwords(str_replace('_', ' ', $name));

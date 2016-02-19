@@ -1,0 +1,12 @@
+preset: laravel
+
+risky: false
+
+linting: true
+
+finder:
+  exclude:
+    - "config"
+    - "lang"
+    - "tests"
+    - "views"

@@ -1,11 +1,11 @@
 <?php
+
 namespace Lykegenes\DatagridBuilder;
 
 class Datagrid
 {
-
     /**
-     * All columns that are added
+     * All columns that are added.
      *
      * @var array
      */
@@ -17,41 +17,34 @@ class Datagrid
     protected $datagridHelper;
 
     /**
-     * Datagrid options
+     * Datagrid options.
      *
      * @var array
      */
     protected $datagridOptions = [
-        'HTML_id'        => 'datagrid',
-        'datagrid_view'  => null,
-        'method'         => 'GET',
-        'url'            => null,
-        'ajaxParams'     => [],
-        'rowCount'       => [10, 25, 50],
-        'searchSettings' => [
-            'caseSensitive' => false,
-            'delay'         => 250, // in milliseconds
-            'characters'    => 1,
-        ],
-        'formatters'     => [
-            'view'    => 'datagrid-builder::formatters.default',
-            'options' => [],
-        ],
-        'converters'     => [
-            'view'    => 'datagrid-builder::converters.default',
-            'options' => [],
+        'view' => 'datagrid-builder::datagrid',
+        'attr' => [
+            // Activate Bootstrap Table
+            'data-toggle' => 'table',
+
+            // HTML & CSS
+            'data-classes' => 'table table-striped table-bordered table-hover',
+
+            // Data
+            'data-url' => null,
+            'data-method' => 'GET',
         ],
     ];
 
     /**
-     * Additional data which can be used to build columns
+     * Additional data which can be used to build columns.
      *
      * @var array
      */
     protected $data = [];
 
     /**
-     * Name of the parent datagrid if any
+     * Name of the parent datagrid if any.
      *
      * @var string|null
      */
@@ -63,12 +56,7 @@ class Datagrid
     protected $datagridBuilder;
 
     /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
-     * List of columns to not render
+     * List of columns to not render.
      *
      * @var array
      **/
@@ -82,7 +70,7 @@ class Datagrid
     protected $rebuilding = false;
 
     /**
-     * Build the datagrid
+     * Build the datagrid.
      *
      * @return mixed
      */
@@ -91,7 +79,7 @@ class Datagrid
     }
 
     /**
-     * Rebuild the datagrid from scratch
+     * Rebuild the datagrid from scratch.
      *
      * @return $this
      */
@@ -113,7 +101,7 @@ class Datagrid
     }
 
     /**
-     * Create the DatagridColumn object
+     * Create the DatagridColumn object.
      *
      * @param string $name
      * @param array  $options
@@ -129,7 +117,7 @@ class Datagrid
     }
 
     /**
-     * Create a new column and add it to the datagrid
+     * Create a new column and add it to the datagrid.
      *
      * @param string $name
      * @param array  $options
@@ -138,40 +126,42 @@ class Datagrid
      */
     public function add($name, array $options = [], $modify = false)
     {
-        if (!$name || trim($name) == '') {
+        if (! $name || trim($name) == '') {
             throw new \InvalidArgumentException(
-                'Please provide valid column name for class [' . get_class($this) . ']'
+                'Please provide valid column name for class ['.get_class($this).']'
             );
         }
-        if ($this->rebuilding && !$this->has($name)) {
+        if ($this->rebuilding && ! $this->has($name)) {
             return $this;
         }
         $this->addColumn($this->makeColumn($name, $options), $modify);
+
         return $this;
     }
 
     /**
-     * Add a DatagridColumn to the datagrid's columns
+     * Add a DatagridColumn to the datagrid's columns.
      *
      * @param DatagridColumn $column
      * @return $this
      */
     protected function addColumn(DatagridColumn $column, $modify = false)
     {
-        if (!$modify && !$this->rebuilding) {
-            $this->preventDuplicate($column->getRealName());
+        if (! $modify && ! $this->rebuilding) {
+            $this->preventDuplicate($column->getName());
         }
-        $this->columns[$column->getRealName()] = $column;
+        $this->columns[$column->getName()] = $column;
+
         return $this;
     }
 
     /**
-     * Add column before another column
+     * Add column before another column.
      *
      * @param string  $name         Name of the column before which new column is added
      * @param string  $columnName    Column name which will be added
      * @param array   $options
-     * @param boolean $modify
+     * @param bool $modify
      * @return $this
      */
     public function addBefore($name, $columnName, $options = [], $modify = false)
@@ -184,11 +174,11 @@ class Datagrid
     }
 
     /**
-     * Add column before another column
+     * Add column before another column.
      * @param string  $name         Name of the column after which new column is added
      * @param string  $columnName    Column name which will be added
      * @param array   $options
-     * @param boolean $modify
+     * @param bool $modify
      * @return $this
      */
     public function addAfter($name, $columnName, $options = [], $modify = false)
@@ -206,7 +196,7 @@ class Datagrid
     private function insertColumnAt($offset, $columnName, $options = [], $modify = false)
     {
         $beforeColumns = array_slice($this->columns, 0, $offset);
-        $afterColumns  = array_slice($this->columns, $offset);
+        $afterColumns = array_slice($this->columns, $offset);
 
         $this->columns = $beforeColumns;
 
@@ -218,7 +208,7 @@ class Datagrid
     }
 
     /**
-     * Remove column with specified name from the datagrid
+     * Remove column with specified name from the datagrid.
      *
      * @param $name
      * @return $this
@@ -227,14 +217,15 @@ class Datagrid
     {
         if ($this->has($name)) {
             unset($this->columns[$name]);
+
             return $this;
         }
 
-        throw new \InvalidArgumentException('Column [' . $name . '] does not exist in ' . get_class($this));
+        throw new \InvalidArgumentException('Column ['.$name.'] does not exist in '.get_class($this));
     }
 
     /**
-     * Modify existing column. If it doesn't exist, it is added to datagrid
+     * Modify existing column. If it doesn't exist, it is added to datagrid.
      *
      * @param        $name
      * @param array  $options
@@ -255,10 +246,10 @@ class Datagrid
     }
 
     /**
-     * Take another datagrid and add it's columns directly to this datagrid
+     * Take another datagrid and add it's columns directly to this datagrid.
      * @param mixed   $class        Datagrid to merge
      * @param array   $options
-     * @param boolean $modify
+     * @param bool $modify
      * @return $this
      */
     public function compose($class, array $options = [], $modify = false)
@@ -270,8 +261,8 @@ class Datagrid
         } elseif (is_string($class)) {
             // If its a string of a class make it the usual way
             $options['name'] = $this->name;
-            $datagrid        = $this->datagridBuilder->create($class, $options);
-            $columns         = $datagrid->getColumns();
+            $datagrid = $this->datagridBuilder->create($class, $options);
+            $columns = $datagrid->getColumns();
         } else {
             throw new \InvalidArgumentException(
                 "[{$class}] is invalid. Please provide either a full class name or Datagrid"
@@ -280,11 +271,12 @@ class Datagrid
         foreach ($columns as $column) {
             $this->addColumn($column, $modify);
         }
+
         return $this;
     }
 
     /**
-     * Render full datagrid
+     * Render full datagrid.
      *
      * @param array $options
      * @param bool  $showStart
@@ -298,7 +290,7 @@ class Datagrid
     }
 
     /**
-     * Render rest of the datagrid
+     * Render rest of the datagrid.
      *
      * @param bool $showDatagridEnd
      * @param bool $showColumns
@@ -312,7 +304,7 @@ class Datagrid
     }
 
     /**
-     * Renders the rest of the datagrid up until the specified column name
+     * Renders the rest of the datagrid up until the specified column name.
      *
      * @param string $column_name
      * @param bool   $showDatagridEnd
@@ -325,7 +317,7 @@ class Datagrid
 
         $i = 1;
         foreach ($columns as $key => $value) {
-            if ($value->getRealName() == $column_name) {
+            if ($value->getName() == $column_name) {
                 break;
             }
             $i++;
@@ -337,7 +329,7 @@ class Datagrid
     }
 
     /**
-     * Get single column instance from datagrid object
+     * Get single column instance from datagrid object.
      *
      * @param $name
      * @return DatagridColumn
@@ -349,12 +341,12 @@ class Datagrid
         }
 
         throw new \InvalidArgumentException(
-            'Column with name [' . $name . '] does not exist in class ' . get_class($this)
+            'Column with name ['.$name.'] does not exist in class '.get_class($this)
         );
     }
 
     /**
-     * Check if datagrid has column
+     * Check if datagrid has column.
      *
      * @param $name
      * @return bool
@@ -365,7 +357,7 @@ class Datagrid
     }
 
     /**
-     * Get all datagrid options
+     * Get all datagrid options.
      *
      * @return array
      */
@@ -375,7 +367,7 @@ class Datagrid
     }
 
     /**
-     * Get single datagrid option
+     * Get single datagrid option.
      *
      * @param string $option
      * @param $default
@@ -387,7 +379,7 @@ class Datagrid
     }
 
     /**
-     * Set single datagrid option on datagrid
+     * Set single datagrid option on datagrid.
      *
      * @param string $option
      * @param mixed $value
@@ -402,7 +394,7 @@ class Datagrid
     }
 
     /**
-     * Set datagrid options
+     * Set datagrid options.
      *
      * @param array $datagridOptions
      * @return $this
@@ -419,70 +411,59 @@ class Datagrid
     }
 
     /**
-     * Get datagrid http method
+     * Loads default options from configuration.
+     *
+     * @return $this
+     */
+    public function initDatagridOptions()
+    {
+        $this->datagridOptions = $this->datagridHelper->mergeOptions($this->datagridHelper->getConfig('datagrid_defaults'), $this->datagridOptions);
+
+        return $this;
+    }
+
+    /**
+     * Get datagrid http method.
      *
      * @return string
      */
     public function getMethod()
     {
-        return $this->datagridOptions['method'];
+        return $this->datagridOptions['attr']['data-method'];
     }
 
     /**
-     * Set datagrid http method
+     * Set datagrid http method.
      *
      * @param string $method
      * @return $this
      */
     public function setMethod($method)
     {
-        $this->datagridOptions['method'] = $method;
+        $this->datagridOptions['attr']['data-method'] = $method;
 
         return $this;
     }
 
     /**
-     * Get datagrid action url
+     * Get datagrid action url.
      *
      * @return string
      */
     public function getUrl()
     {
-        return $this->datagridOptions['url'];
+        return $this->datagridOptions['attr']['data-url'];
     }
 
     /**
-     * Set datagrid action url
+     * Set datagrid action url.
      *
      * @param string $url
      * @return $this
      */
     public function setUrl($url)
     {
-        $this->datagridOptions['url'] = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get datagrid ajax request parameters
-     *
-     * @return string
-     */
-    public function getAjaxParams()
-    {
-        return $this->datagridOptions['ajaxParams'];
-    }
-
-    /**
-     * Set datagrid ajax request parameters
-     *
-     * @param array $ajaxParams
-     * @return $this
-     */
-    public function setAjaxParams($ajaxParams)
-    {
-        $this->datagridOptions['ajaxParams'] = $ajaxParams;
+        $this->datagridOptions['attr']['data-url'] = $url;
 
         return $this;
     }
@@ -510,7 +491,7 @@ class Datagrid
     }
 
     /**
-     * Get all columns
+     * Get all columns.
      *
      * @return DatagridColumn[]
      */
@@ -520,7 +501,7 @@ class Datagrid
     }
 
     /**
-     * Get column dynamically
+     * Get column dynamically.
      *
      * @param $name
      * @return DatagridColumn
@@ -533,7 +514,7 @@ class Datagrid
     }
 
     /**
-     * Set the datagrid helper only on first instantiation
+     * Set the datagrid helper only on first instantiation.
      *
      * @param DatagridHelper $datagridHelper
      * @return $this
@@ -546,7 +527,7 @@ class Datagrid
     }
 
     /**
-     * Get datagrid helper
+     * Get datagrid helper.
      *
      * @return DatagridHelper
      */
@@ -556,7 +537,7 @@ class Datagrid
     }
 
     /**
-     * Add any aditional data that column needs (ex. array of choices)
+     * Add any aditional data that column needs (ex. array of choices).
      *
      * @param string $name
      * @param mixed $data
@@ -567,7 +548,7 @@ class Datagrid
     }
 
     /**
-     * Get single additional data
+     * Get single additional data.
      *
      * @param string $name
      * @param null   $default
@@ -583,7 +564,7 @@ class Datagrid
     }
 
     /**
-     * Add multiple peices of data at once
+     * Add multiple peices of data at once.
      *
      * @param $data
      * @return $this
@@ -598,59 +579,37 @@ class Datagrid
     }
 
     /**
-     * Get current request
-     *
-     * @return \Illuminate\Http\Request
-     */
-    public function getRequest()
-    {
-        return $this->request ?: $this->datagridHelper->getRequest();
-    }
-
-    /**
-     * Set request on datagrid
-     *
-     * @param Request $request
-     * @return $this
-     */
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
-        return $this;
-    }
-
-    /**
-     * Render the datagrid
+     * Render the datagrid.
      *
      * @param $options
      * @param $columns
-     * @param boolean $showStart
-     * @param boolean $showColumns
-     * @param boolean $showEnd
+     * @param bool $showStart
+     * @param bool $showColumns
+     * @param bool $showEnd
      * @return string
      */
     protected function render($options, $columns, $showStart, $showColumns, $showEnd)
     {
         $datagridOptions = $this->datagridHelper->mergeOptions($this->datagridOptions, $options);
 
-        if (isset($datagridOptions['datagrid_view'])) {
-            $datagridView = $datagridOptions['datagrid_view'];
+        if (isset($datagridOptions['view']) && view()->exists($datagridOptions['view'])) {
+            $datagridView = $datagridOptions['view'];
         } else {
-            $datagridView = $this->datagridHelper->getConfig('views.' . $this->datagridHelper->getConfig('default_datagrid_view'));
+            $datagridView = $this->datagridHelper->getConfig('datagrid_defaults.view');
         }
 
         return $this->datagridHelper->getView()
                     ->make($datagridView)
                     ->with(compact('showStart', 'showColumns', 'showEnd'))
-                    ->with('HTML_id', $datagridOptions['HTML_id'])
                     ->with('datagridOptions', $datagridOptions)
+                    ->with('tableAttrs', $this->datagridHelper->prepareAttributes($this->datagridOptions['attr']))
                     ->with('columns', $columns)
                     ->with('exclude', $this->exclude)
                     ->render();
     }
 
     /**
-     * Get all columns that are not rendered
+     * Get all columns that are not rendered.
      *
      * @return array
      */
@@ -659,7 +618,7 @@ class Datagrid
         $unrenderedColumns = [];
 
         foreach ($this->columns as $column) {
-            if (!$column->isRendered()) {
+            if (! $column->isRendered()) {
                 $unrenderedColumns[] = $column;
                 continue;
             }
@@ -669,19 +628,19 @@ class Datagrid
     }
 
     /**
-     * Prevent adding columns with same name
+     * Prevent adding columns with same name.
      *
      * @param string $name
      */
     protected function preventDuplicate($name)
     {
         if ($this->has($name)) {
-            throw new \InvalidArgumentException('Column [' . $name . '] already exists in the datagrid ' . get_class($this));
+            throw new \InvalidArgumentException('Column ['.$name.'] already exists in the datagrid '.get_class($this));
         }
     }
 
     /**
-     * Check if datagrid is named datagrid
+     * Check if datagrid is named datagrid.
      */
     protected function checkIfNamedDatagrid()
     {
@@ -691,7 +650,7 @@ class Datagrid
     }
 
     /**
-     * Set up options on single column depending on datagrid options
+     * Set up options on single column depending on datagrid options.
      *
      * @param string $name
      * @param $options
@@ -702,15 +661,13 @@ class Datagrid
             return;
         }
 
-        $options['real_name'] = $name;
-
-        if (!isset($options['label'])) {
+        if (! isset($options['label'])) {
             $options['label'] = $this->datagridHelper->formatLabel($name);
         }
     }
 
     /**
-     * Get any data from options and remove it
+     * Get any data from options and remove it.
      */
     protected function getDataFromOptions()
     {
@@ -720,7 +677,7 @@ class Datagrid
     }
 
     /**
-     * Set datagrid builder instance on helper so we can use it later
+     * Set datagrid builder instance on helper so we can use it later.
      *
      * @param DatagridBuilder $datagridBuilder
      * @return $this
@@ -741,7 +698,7 @@ class Datagrid
     }
 
     /**
-     * Exclude some columns from rendering
+     * Exclude some columns from rendering.
      *
      * @return $this
      */
@@ -753,7 +710,7 @@ class Datagrid
     }
 
     /**
-     * If datagrid is named datagrid, modify names to be contained in single key (parent[child_column_name])
+     * If datagrid is named datagrid, modify names to be contained in single key (parent[child_column_name]).
      *
      * @param string $name
      * @return string
@@ -761,10 +718,9 @@ class Datagrid
     protected function getColumnName($name)
     {
         if ($this->getName() !== null) {
-            return $this->getName() . '[' . $name . ']';
+            return $this->getName().'['.$name.']';
         }
 
         return $name;
     }
-
 }

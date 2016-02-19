@@ -1,4 +1,5 @@
 <?php
+
 namespace Lykegenes\DatagridBuilder;
 
 /**
@@ -6,7 +7,6 @@ namespace Lykegenes\DatagridBuilder;
  */
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
-
     /**
      * Register the service provider.
      *
@@ -14,7 +14,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function register()
     {
-        $configPath = __DIR__ . '/../config/config.php';
+        $configPath = __DIR__.'/../config/config.php';
         $this->mergeConfigFrom($configPath, 'datagrid-builder');
 
         $this->registerDatagridHelper();
@@ -39,9 +39,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function boot()
     {
-        $configPath = __DIR__ . '/../config/config.php';
-        $viewsPath  = __DIR__ . '/../views';
-        $langPath   = __DIR__ . '/../lang';
+        $configPath = __DIR__.'/../config/config.php';
+        $viewsPath = __DIR__.'/../views';
+        $langPath = __DIR__.'/../lang';
 
         $this->loadViewsFrom($viewsPath, 'datagrid-builder');
         $this->loadTranslationsFrom($langPath, 'datagrid-builder');
@@ -60,7 +60,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     }
 
     /**
-     * Get the config path
+     * Get the config path.
      *
      * @return string
      */
@@ -70,7 +70,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     }
 
     /**
-     * Get the views path
+     * Get the views path.
      *
      * @return string
      */
@@ -80,7 +80,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     }
 
     /**
-     * Get the lang path
+     * Get the lang path.
      *
      * @return string
      */
@@ -88,5 +88,4 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         return base_path('resources/lang/vendor/datagrid-builder');
     }
-
 }

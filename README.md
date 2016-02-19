@@ -3,12 +3,10 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Codacy Badge][ico-codacy]][link-codacy]
+[![Code Coverage][ico-coveralls]][link-coveralls]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
+The package is a Laravel wrapper for [Bootstrap Table](https://github.com/wenzhixin/bootstrap-table) JS library. It allows you to quickly build reusable Datatables in your frontend and bind your API as its data source. Notable features are Sorting, Searching, Hide/Show columns, Pagination, and personalized columns.
 
 ## Install
 
@@ -19,16 +17,19 @@ composer require lykegenes/laravel-datagrid-builder
 ```
 
 Then, add this to your Service Providers :
+
 ``` php
 Lykegenes\DatagridBuilder\ServiceProvider::class,
 ```
 
 ...and this to your Aliases :
+
 ``` php
 'DatagridBuilder' => Lykegenes\DatagridBuilder\Facades\DatagridBuilder::class,
 ```
 
 Optionally, you can publish and edit the configuration file :
+
 ``` bash
 php artisan vendor:publish --provider="Lykegenes\DatagridBuilder\ServiceProvider" --tag=config
 ```
@@ -36,12 +37,6 @@ php artisan vendor:publish --provider="Lykegenes\DatagridBuilder\ServiceProvider
 ## Usage
 
 See the [WIKI](https://github.com/Lykegenes/laravel-datagrid-builder/wiki)
-
-## Testing
-
-``` bash
-composer test
-```
 
 ## Credits
 
@@ -52,17 +47,15 @@ composer test
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/lykegenes/laravel-datagrid-builder.svg?style=flat-square
-[ico-license]: https://img.shields.io/packagist/l/lykegenes/laravel-datagrid-builder.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/Lykegenes/laravel-datagrid-builder/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/lykegenes/laravel-datagrid-builder.svg?style=flat-square
-[ico-codacy]: https://api.codacy.com/project/badge/ff95c3e5360649638c61f2834bffd8b2
-[ico-downloads]: https://img.shields.io/packagist/dt/lykegenes/laravel-datagrid-builder.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/lykegenes/laravel-datagrid-builder.svg
+[ico-license]: https://img.shields.io/packagist/l/lykegenes/laravel-datagrid-builder.svg
+[ico-travis]: https://img.shields.io/travis/Lykegenes/laravel-datagrid-builder/master.svg
+[ico-coveralls]: https://img.shields.io/coveralls/Lykegenes/laravel-datagrid-builder.svg
+[ico-downloads]: https://img.shields.io/packagist/dt/lykegenes/laravel-datagrid-builder.svg
 
 [link-packagist]: https://packagist.org/packages/lykegenes/laravel-datagrid-builder
 [link-travis]: https://travis-ci.org/Lykegenes/laravel-datagrid-builder
-[link-scrutinizer]: https://scrutinizer-ci.com/g/lykegenes/laravel-datagrid-builder/code-structure
-[link-codacy]: https://www.codacy.com/app/Lykegenes/laravel-datagrid-builder
+[link-coveralls]: https://coveralls.io/github/Lykegenes/laravel-datagrid-builder
 [link-downloads]: https://packagist.org/packages/lykegenes/laravel-datagrid-builder
 [link-author]: https://github.com/lykegenes
 [link-contributors]: ../../contributors

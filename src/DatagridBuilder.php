@@ -1,11 +1,11 @@
 <?php
+
 namespace Lykegenes\DatagridBuilder;
 
 use Illuminate\Contracts\Container\Container;
 
 class DatagridBuilder
 {
-
     /**
      * @var Container
      */
@@ -22,7 +22,7 @@ class DatagridBuilder
      */
     public function __construct(Container $container, DatagridHelper $datagridHelper)
     {
-        $this->container      = $container;
+        $this->container = $container;
         $this->datagridHelper = $datagridHelper;
     }
 
@@ -34,11 +34,11 @@ class DatagridBuilder
      */
     public function create($datagridClass, array $options = [], array $data = [])
     {
-        $class = $this->getNamespaceFromConfig() . $datagridClass;
+        $class = $this->getNamespaceFromConfig().$datagridClass;
 
-        if (!class_exists($class)) {
+        if (! class_exists($class)) {
             throw new \InvalidArgumentException(
-                'Datagrid class with name ' . $class . ' does not exist.'
+                'Datagrid class with name '.$class.' does not exist.'
             );
         }
 
@@ -46,6 +46,7 @@ class DatagridBuilder
                          ->make($class)
                          ->setDatagridHelper($this->datagridHelper)
                          ->setDatagridBuilder($this)
+                         ->initDatagridOptions()
                          ->setDatagridOptions($options)
                          ->addData($data);
 
@@ -55,7 +56,7 @@ class DatagridBuilder
     }
 
     /**
-     * Get the namespace from the config
+     * Get the namespace from the config.
      *
      * @return string
      */
@@ -63,15 +64,15 @@ class DatagridBuilder
     {
         $namespace = $this->datagridHelper->getConfig('default_namespace');
 
-        if (!$namespace) {
+        if (! $namespace) {
             return '';
         }
 
-        return $namespace . '\\';
+        return $namespace.'\\';
     }
 
     /**
-     * Get instance of the empty datagrid which can be modified
+     * Get instance of the empty datagrid which can be modified.
      *
      * @param array $options
      * @param array $data
@@ -83,6 +84,7 @@ class DatagridBuilder
                     ->make('Lykegenes\DatagridBuilder\Datagrid')
                     ->setDatagridHelper($this->datagridHelper)
                     ->setDatagridBuilder($this)
+                    ->initDatagridOptions()
                     ->setDatagridOptions($options)
                     ->addData($data);
     }

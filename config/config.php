@@ -11,48 +11,55 @@ return [
     | HTML elements that will be generated.
     |
      */
-    'default_css' => [
-        // Will be appended to the <table> element
-        'datagrid_class' => 'table table-condensed table-hover table-striped',
+    'datagrid_defaults' => [
+        'view' => 'datagrid-builder::datagrid',
+        'attr' => [
+            // HTML & CSS
+            'data-classes' => 'table table-striped table-bordered table-hover',
 
-        // Will be appended to all the <th> elements
-        'column_class' => 'table-column',
+            // Data
+            'data-url' => null,
+            'data-method' => 'GET',
+            'data-cache' => true, // Cache Ajax requests.
+            'data-flat' => true, // requires the "Flat JSON" extension; flattens to a single-level array.
+            'data-data-field' => 'data', // Which JSON attribute contains the data array?
+            'data-id-field' => 'id', // Indicate which field is an identity field.
+
+            // Sorting
+            'data-sortable' => true, // False to disable sortable of all columns.
+
+            // Pagination
+            'data-pagination' => true,
+            'data-side-pagination' => 'client', // 'client' or 'server' with Ajax
+            'data-page-size' => 10,
+            'data-page-list' => '[5, 10, 20, 50, All]',
+
+            // Search
+            'data-search' => true,
+            'data-search-time-out' => 250, // Wait for X ms after last input before firing the search.
+
+            // UI
+            'data-locale' => 'en-US',
+            'data-show-refresh' => true,
+            'data-show-toggle' => false, // Toggle for the card view
+            'data-show-columns' => true, // Menu to show/hide columns.
+            'data-show-footer' => false, // A summary footer, for totals and such.
+        ],
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Available Views
-    |--------------------------------------------------------------------------
-    |
-    | This array contains all the views that can be used to properly
-    | generate a datagrid.
-    |
-     */
-    'views' => [
-        // For client-side processing
-        'client_datagrid' => 'datagrid-builder::clientDatagrid',
-
-        // For server-side processing
-        'server_datagrid' => 'datagrid-builder::serverDatagrid',
-
-        // For the table headers
-        'column' => 'datagrid-builder::column',
+    'column_defaults' => [
+        'view' => 'datagrid-builder::column',
+        'attr' => [
+            'data-sortable' => true,
+            'data-order' => 'asc',
+            'data-visible' => true,
+            'data-searchable' => true,
+            'data-class' => null, // The column class name.
+            'data-field' => null, // The column field name.
+            'data-title' => null, // The column header title text.
+        ],
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Default Datagrid View
-    |--------------------------------------------------------------------------
-    |
-    | Set the default view that will be used when generating a datagrid.
-    | Use one of the keys from the 'views' array above.
-    |
-     */
-    'default_datagrid_view' => 'client_datagrid',
-
-    /**
-     * jQuery Bootgrid assets location
-     */
     /*
     |--------------------------------------------------------------------------
     | Assets Location
@@ -65,7 +72,7 @@ return [
     | that you already included it.
     |
      */
-    'css_url' => '//cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.min.css',
-    'js_url'  => '//cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.min.js',
+    'css_url' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/bootstrap-table.min.css',
+    'js_url' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/bootstrap-table.min.js',
 
 ];
