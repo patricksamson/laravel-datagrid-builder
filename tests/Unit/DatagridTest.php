@@ -36,6 +36,18 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
         ];
     }
 
+    /**
+     * Define environment setup.
+     *
+     * @param Illuminate\Foundation\Application $app
+     */
+    protected function getEnvironmentSetUp($app)
+    {
+        $app['router']->get('plainDatagrid', function () {
+            return datagrid($this->plainDatagrid);
+        });
+    }
+
     /** @test */
     public function it_can_add_column()
     {
@@ -105,5 +117,36 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
         $this->plainDatagrid->modify('firstColumn', ['attr' => ['other' => 'other value']], true);
         $this->assertEquals(null, $this->plainDatagrid->getColumn('firstColumn')->getOption('attr.test'));
         $this->assertEquals('other value', $this->plainDatagrid->getColumn('firstColumn')->getOption('attr.other'));
+    }
+
+    /** @test */
+    public function it_excludes_columns()
+    {
+        $this->plainDatagrid->add('column')
+            ->add('otherColumn');
+
+        $this->plainDatagrid->exclude(['column']);
+
+        $this->visit('plainDatagrid')
+            ->dontSee('data-field="column"')
+            ->see('data-field="otherColumn"');
+    }
+
+    /** @test */
+    public function it_adds_columns_in_right_order()
+    {
+        $this->plainDatagrid->add('firstColumn');
+
+        // test addAfter
+        $this->plainDatagrid->addAfter('firstColumn', 'secondColumn');
+        $columns = $this->plainDatagrid->getColumns();
+        $this->assertArrayHasKey('secondColumn', $columns);
+        $this->assertGreaterThan(array_search('firstColumn', array_keys($columns)), array_search('secondColumn', array_keys($columns)));
+
+        // test addBefore
+        $this->plainDatagrid->addBefore('firstColumn', 'thirdColumn');
+        $columns = $this->plainDatagrid->getColumns();
+        $this->assertArrayHasKey('thirdColumn', $columns);
+        $this->assertLessThan(array_search('firstColumn', array_keys($columns)), array_search('thirdColumn', array_keys($columns)));
     }
 }
