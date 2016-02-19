@@ -149,4 +149,58 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
         $this->assertArrayHasKey('thirdColumn', $columns);
         $this->assertLessThan(array_search('firstColumn', array_keys($columns)), array_search('thirdColumn', array_keys($columns)));
     }
+
+    /** @test */
+    public function it_sets_datagrid_http_method()
+    {
+        $this->assertEquals('GET', $this->plainDatagrid->getMethod());
+
+        $this->plainDatagrid->setMethod('POST');
+        $this->assertEquals('POST', $this->plainDatagrid->getMethod());
+    }
+
+    /** @test */
+    public function it_sets_datagrid_ajax_url()
+    {
+        $this->assertEquals(null, $this->plainDatagrid->getUrl());
+
+        $this->plainDatagrid->setUrl('/api/test');
+        $this->assertEquals('/api/test', $this->plainDatagrid->getUrl());
+    }
+
+    /** @test */
+    public function it_can_compose_datagrid()
+    {
+        $this->plainDatagrid->add('column')
+            ->add('otherColumn');
+
+        $childDatagrid = $this->builder->plain()->add('childColumn');
+
+        $this->plainDatagrid->compose($childDatagrid);
+
+        $this->assertTrue($this->plainDatagrid->has('column'));
+        $this->assertTrue($this->plainDatagrid->has('otherColumn'));
+        $this->assertTrue($this->plainDatagrid->has('childColumn'));
+    }
+
+    /** @test */
+    public function it_can_compose_datagrid_from_class()
+    {
+        $this->plainDatagrid->add('column')
+            ->add('otherColumn');
+
+        $this->plainDatagrid->compose(\Lykegenes\DatagridBuilder\TestCase\ComposeDatagrid::class);
+
+        $this->assertTrue($this->plainDatagrid->has('column'));
+        $this->assertTrue($this->plainDatagrid->has('otherColumn'));
+        $this->assertTrue($this->plainDatagrid->has('childColumn'));
+    }
+}
+
+class ComposeDatagrid extends \Lykegenes\DatagridBuilder\Datagrid
+{
+    public function buildDatagrid()
+    {
+        $this->add('childColumn');
+    }
 }
