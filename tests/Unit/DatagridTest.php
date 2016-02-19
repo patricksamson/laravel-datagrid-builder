@@ -37,7 +37,7 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
     }
 
     /** @test */
-    public function testAddingColumns()
+    public function it_can_add_column()
     {
         $this->assertFalse($this->plainDatagrid->has('firstColumn'));
         $this->plainDatagrid->add('firstColumn');
@@ -51,10 +51,30 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
     }
 
     /** @test */
-    public function testDontAddDuplicates()
+    public function it_thorws_exception_when_adding_duplicate_column()
     {
         $this->plainDatagrid->add('firstColumn');
         $this->expectException(\InvalidArgumentException::class);
         $this->plainDatagrid->add('firstColumn');
+    }
+
+    /** @test */
+    public function it_can_remove_a_column_from_datagrid()
+    {
+        $this->plainDatagrid->add('firstColumn');
+        $this->assertTrue($this->plainDatagrid->has('firstColumn'));
+
+        $this->plainDatagrid->remove('firstColumn');
+        $this->assertFalse($this->plainDatagrid->has('firstColumn'));
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->plainDatagrid->remove('firstColumn');
+    }
+
+    /** @test */
+    public function it_can_set_datagrid_name()
+    {
+        $this->plainDatagrid->setName('some name');
+        $this->assertEquals('some name', $this->plainDatagrid->getName());
     }
 }
