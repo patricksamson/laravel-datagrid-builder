@@ -225,6 +225,23 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
         $this->assertEquals('overwrite', $this->plainDatagrid->getDatagridOption('test'));
         $this->assertEquals('overwrite', $this->plainDatagrid->getDatagridOptions()['test']);
     }
+
+    /** @test */
+    public function it_can_set_datagrid_data()
+    {
+        $this->assertEquals([], $this->plainDatagrid->getData());
+
+        $this->plainDatagrid->setData('test', 'value');
+        $this->assertEquals('value', $this->plainDatagrid->getData('test'));
+        $this->assertEquals(['test' => 'value'], $this->plainDatagrid->getData());
+
+        $this->plainDatagrid->addData(['other test' => 'other value']);
+        $this->assertEquals('other value', $this->plainDatagrid->getData('other test'));
+        $this->assertEquals(['test' => 'value', 'other test' => 'other value'], $this->plainDatagrid->getData());
+
+        $this->plainDatagrid->setData('test', 'new value');
+        $this->assertEquals('new value', $this->plainDatagrid->getData('test'));
+    }
 }
 
 class ComposeDatagrid extends \Lykegenes\DatagridBuilder\Datagrid
