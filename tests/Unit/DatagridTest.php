@@ -51,7 +51,7 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
     }
 
     /** @test */
-    public function it_thorws_exception_when_adding_duplicate_column()
+    public function it_throws_exception_when_adding_duplicate_column()
     {
         $this->plainDatagrid->add('firstColumn');
         $this->expectException(\InvalidArgumentException::class);
@@ -76,5 +76,34 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
     {
         $this->plainDatagrid->setName('some name');
         $this->assertEquals('some name', $this->plainDatagrid->getName());
+    }
+
+    /** @test */
+    public function it_validates_columns_names()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->plainDatagrid->add(null);
+        $this->assertFalse($this->plainDatagrid->has(null));
+
+        $this->plainDatagrid->add('');
+        $this->assertFalse($this->plainDatagrid->has(''));
+    }
+
+    /** @test */
+    public function it_modifies_existing_columns()
+    {
+        // add column if it doesn't exist already
+        $this->plainDatagrid->modify('firstColumn');
+        $this->assertTrue($this->plainDatagrid->has('firstColumn'));
+
+        // modify the column options
+        $this->plainDatagrid->modify('firstColumn', ['attr' => ['test' => 'option value']]);
+        $this->assertEquals('option value', $this->plainDatagrid->getColumn('firstColumn')->getOption('attr.test'));
+
+        // overwrite the column options
+        $this->plainDatagrid->modify('firstColumn', ['attr' => ['other' => 'other value']], true);
+        $this->assertEquals(null, $this->plainDatagrid->getColumn('firstColumn')->getOption('attr.test'));
+        $this->assertEquals('other value', $this->plainDatagrid->getColumn('firstColumn')->getOption('attr.other'));
     }
 }
