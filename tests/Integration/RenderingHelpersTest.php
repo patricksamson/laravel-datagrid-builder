@@ -93,4 +93,20 @@ class RenderingHelpersTest extends \Orchestra\Testbench\TestCase
             ->dontSee('data-field="firstColumn"')
             ->see('</table>');
     }
+
+    /** @test */
+    public function testDatagridColumn()
+    {
+        $this->plainDatagrid->add('firstColumn');
+        $column = $this->plainDatagrid->getColumn('firstColumn');
+
+        $this->app['router']->get('column', function () use ($column) {
+            return datagrid_column($column);
+        });
+
+        $this->visit('column')
+            ->dontSee('<table')
+            ->see('data-field="firstColumn"')
+            ->dontSee('</table>');
+    }
 }

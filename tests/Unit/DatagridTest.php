@@ -242,6 +242,13 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
         $this->plainDatagrid->setData('test', 'new value');
         $this->assertEquals('new value', $this->plainDatagrid->getData('test'));
     }
+
+    /** @test */
+    public function it_can_get_datagrid_builder()
+    {
+        $this->assertInstanceOf(\Lykegenes\DatagridBuilder\DatagridBuilder::class, $this->plainDatagrid->getDatagridBuilder());
+        $this->assertEquals($this->builder, $this->plainDatagrid->getDatagridBuilder());
+    }
 }
 
 class ComposeDatagrid extends \Lykegenes\DatagridBuilder\Datagrid

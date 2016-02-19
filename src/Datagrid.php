@@ -661,8 +661,6 @@ class Datagrid
             return;
         }
 
-        $options['real_name'] = $name;
-
         if (! isset($options['label'])) {
             $options['label'] = $this->datagridHelper->formatLabel($name);
         }

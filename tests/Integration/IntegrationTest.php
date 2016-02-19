@@ -98,6 +98,9 @@ class IntegrationTest extends \Orchestra\Testbench\TestCase
         $this->visit('classDatagrid')
             ->see('data-field="column"')
             ->see('data-field="otherColumn"');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->classDatagrid = $this->builder->create('missing class');
     }
 
     /** @test */
