@@ -211,9 +211,6 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
         $this->assertTrue($this->plainDatagrid->has('column'));
         $this->assertTrue($this->plainDatagrid->has('otherColumn'));
         $this->assertTrue($this->plainDatagrid->has('childColumn'));
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->plainDatagrid->compose('some invalid class');
     }
 
     /** @test */

@@ -99,6 +99,19 @@ class IntegrationTest extends \Orchestra\Testbench\TestCase
             ->see('data-field="column"')
             ->see('data-field="otherColumn"');
     }
+
+    /** @test */
+    public function testDatagridViewFallback()
+    {
+        $this->plainDatagrid->setDatagridOption('view', 'missingview');
+
+        $this->plainDatagrid->add('column')
+            ->add('otherColumn');
+
+        $this->visit('plainDatagrid')
+            ->see('data-field="column"')
+            ->see('data-field="otherColumn"');
+    }
 }
 
 class DummyDatagrid extends \Lykegenes\DatagridBuilder\Datagrid

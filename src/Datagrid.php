@@ -56,11 +56,6 @@ class Datagrid
     protected $datagridBuilder;
 
     /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
      * List of columns to not render.
      *
      * @var array
@@ -620,10 +615,10 @@ class Datagrid
     {
         $datagridOptions = $this->datagridHelper->mergeOptions($this->datagridOptions, $options);
 
-        if (isset($datagridOptions['view'])) {
+        if (isset($datagridOptions['view']) && view()->exists($datagridOptions['view'])) {
             $datagridView = $datagridOptions['view'];
         } else {
-            $datagridView = $this->datagridHelper->getConfig('views.'.$this->datagridHelper->getConfig('datgrid_defaults.view'));
+            $datagridView = $this->datagridHelper->getConfig('datagrid_defaults.view');
         }
 
         return $this->datagridHelper->getView()
