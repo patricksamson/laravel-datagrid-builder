@@ -474,29 +474,6 @@ class Datagrid
     }
 
     /**
-     * Get datagrid ajax request parameters.
-     *
-     * @return string
-     */
-    public function getAjaxParams()
-    {
-        return $this->datagridOptions['ajaxParams'];
-    }
-
-    /**
-     * Set datagrid ajax request parameters.
-     *
-     * @param array $ajaxParams
-     * @return $this
-     */
-    public function setAjaxParams($ajaxParams)
-    {
-        $this->datagridOptions['ajaxParams'] = $ajaxParams;
-
-        return $this;
-    }
-
-    /**
      * @return string|null
      */
     public function getName()

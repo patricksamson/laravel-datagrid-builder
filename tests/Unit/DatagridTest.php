@@ -71,6 +71,22 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
     }
 
     /** @test */
+    public function it_can_get_column()
+    {
+        $this->plainDatagrid->add('firstColumn');
+
+        $column = $this->plainDatagrid->getColumn('firstColumn');
+        $this->assertInstanceOf(\Lykegenes\DatagridBuilder\DatagridColumn::class, $column);
+        $this->assertEquals('firstColumn', $column->getName());
+
+        $this->assertEquals($column, $this->plainDatagrid->firstColumn);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->plainDatagrid->getColumn('other');
+        $this->assertEquals(null, $this->plainDatagrid->other);
+    }
+
+    /** @test */
     public function it_can_remove_a_column_from_datagrid()
     {
         $this->plainDatagrid->add('firstColumn');
@@ -194,6 +210,26 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
         $this->assertTrue($this->plainDatagrid->has('column'));
         $this->assertTrue($this->plainDatagrid->has('otherColumn'));
         $this->assertTrue($this->plainDatagrid->has('childColumn'));
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->plainDatagrid->compose('some invalid class');
+    }
+
+    /** @test */
+    public function it_can_set_datagrid_options()
+    {
+        $this->assertEquals(null, $this->plainDatagrid->getDatagridOption('test'));
+        $this->plainDatagrid->setDatagridOption('test', 'value');
+        $this->assertEquals('value', $this->plainDatagrid->getDatagridOption('test'));
+        $this->assertEquals('value', $this->plainDatagrid->getDatagridOptions()['test']);
+
+        $this->plainDatagrid->setDatagridOption('test', 'overwrite');
+        $this->assertEquals('overwrite', $this->plainDatagrid->getDatagridOption('test'));
+        $this->assertEquals('overwrite', $this->plainDatagrid->getDatagridOptions()['test']);
+
+        $this->plainDatagrid->setDatagridOption('test.dot.notation', 'dot notation value');
+        $this->assertEquals('dot notation value', $this->plainDatagrid->getDatagridOption('test.dot.notation'));
+        $this->assertEquals('dot notation value', $this->plainDatagrid->getDatagridOptions()['test.dot.notation']);
     }
 }
 
