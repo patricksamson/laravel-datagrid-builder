@@ -36,7 +36,7 @@ php artisan vendor:publish --provider="Lykegenes\DatagridBuilder\ServiceProvider
 
 ## Usage
 
-See the Docs.
+See the [WIKI](https://github.com/Lykegenes/laravel-datagrid-builder/wiki)
 
 ## Credits
 
