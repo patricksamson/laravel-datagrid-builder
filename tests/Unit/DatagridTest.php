@@ -8,6 +8,7 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
      * @var Lykegenes\DatagridBuilder\DatagridBuilder
      */
     protected $builder;
+
     /**
      * @var Lykegenes\DatagridBuilder\Datagrid
      */
@@ -226,10 +227,6 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
         $this->plainDatagrid->setDatagridOption('test', 'overwrite');
         $this->assertEquals('overwrite', $this->plainDatagrid->getDatagridOption('test'));
         $this->assertEquals('overwrite', $this->plainDatagrid->getDatagridOptions()['test']);
-
-        $this->plainDatagrid->setDatagridOption('test.dot.notation', 'dot notation value');
-        $this->assertEquals('dot notation value', $this->plainDatagrid->getDatagridOption('test.dot.notation'));
-        $this->assertEquals('dot notation value', $this->plainDatagrid->getDatagridOptions()['test.dot.notation']);
     }
 }
 

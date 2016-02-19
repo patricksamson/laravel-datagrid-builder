@@ -80,17 +80,6 @@ class DatagridColumn
     }
 
     /**
-     * Transform array like syntax to dot syntax.
-     *
-     * @param $key
-     * @return mixed
-     */
-    protected function transformKey($key)
-    {
-        return str_replace(['.', '[]', '[', ']'], ['_', '', '.', ''], $key);
-    }
-
-    /**
      * Prepare options for rendering.
      *
      * @param array $options
