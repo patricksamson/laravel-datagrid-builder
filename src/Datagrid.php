@@ -579,29 +579,6 @@ class Datagrid
     }
 
     /**
-     * Get current request.
-     *
-     * @return \Illuminate\Http\Request
-     */
-    public function getRequest()
-    {
-        return $this->request ?: $this->datagridHelper->getRequest();
-    }
-
-    /**
-     * Set request on datagrid.
-     *
-     * @param Request $request
-     * @return $this
-     */
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
-
-        return $this;
-    }
-
-    /**
      * Render the datagrid.
      *
      * @param $options
