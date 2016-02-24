@@ -115,6 +115,32 @@ class IntegrationTest extends \Orchestra\Testbench\TestCase
             ->see('data-field="column"')
             ->see('data-field="otherColumn"');
     }
+
+    /** @test */
+    public function testOverwriteDefaultDatagridOptions()
+    {
+        $this->plainDatagrid->setDatagridOptions(['attr' => ['data-toggle' => 'test']]);
+
+        $this->visit('plainDatagrid')
+            ->see('<table') // The Html tag
+            ->see('data-toggle="test"') // The trigger for the bootstrap table library (JS)
+            ->dontSee('<th>'); // There shouldn't be any columns
+    }
+
+    /** @test */
+    public function testGetDatagridOptionsFromUserConfig()
+    {
+        config(['datagrid-builder.datagrid_defaults.attr.data-classes' => 'table custom-class']);
+
+        $tempDatagrid = $this->builder->plain();
+
+        $this->app['router']->get('temp', function () use ($tempDatagrid) {
+            return datagrid($tempDatagrid);
+        });
+
+        $this->visit('temp')
+            ->see('data-classes="table custom-class"');
+    }
 }
 
 class DummyDatagrid extends \Lykegenes\DatagridBuilder\Datagrid

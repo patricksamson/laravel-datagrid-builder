@@ -29,9 +29,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $this->app->singleton('datagrid-helper', function ($app) {
 
-            $configuration = $app['config']->get('datagrid-builder');
-
-            return new DatagridHelper($app['view'], $app['request'], $configuration);
+            return new DatagridHelper($app['view'], $app['request'], $app['config']);
         });
 
         $this->app->alias('datagrid-helper', 'Lykegenes\DatagridBuilder\DatagridHelper');

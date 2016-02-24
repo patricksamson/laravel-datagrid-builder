@@ -2,6 +2,7 @@
 
 namespace Lykegenes\DatagridBuilder;
 
+use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Contracts\View\Factory as View;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class DatagridHelper
     protected $view;
 
     /**
-     * @var array
+     * @var Config
      */
     protected $config;
 
@@ -32,7 +33,7 @@ class DatagridHelper
      * @param Request $request
      * @param array   $config
      */
-    public function __construct(View $view, Request $request, array $config = [])
+    public function __construct(View $view, Request $request, Config $config)
     {
         $this->view = $view;
         $this->config = $config;
@@ -46,7 +47,7 @@ class DatagridHelper
      */
     public function getConfig($key, $default = null)
     {
-        return array_get($this->config, $key, $default);
+        return $this->config->get('datagrid-builder.'.$key, $default);
     }
 
     /**

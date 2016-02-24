@@ -227,6 +227,20 @@ class DatagridTest extends \Orchestra\Testbench\TestCase
     }
 
     /** @test */
+    public function it_can_overwrite_default_datagrid_options()
+    {
+        // modify options in datagrid instance
+        $this->assertEquals('table', $this->plainDatagrid->getDatagridOptions()['attr']['data-toggle']);
+        $this->plainDatagrid->setDatagridOptions(['attr' => ['data-toggle' => 'test']]);
+        $this->assertEquals('test', $this->plainDatagrid->getDatagridOptions()['attr']['data-toggle']);
+
+        // modify options in config before creating instance
+        config(['datagrid-builder.datagrid_defaults.attr.data-classes' => 'table custom-class']);
+        $tempDatagrid = $this->builder->plain();
+        $this->assertEquals('table custom-class', $tempDatagrid->getDatagridOptions()['attr']['data-classes']);
+    }
+
+    /** @test */
     public function it_can_set_datagrid_data()
     {
         $this->assertEquals([], $this->plainDatagrid->getData());

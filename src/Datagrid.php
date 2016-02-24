@@ -417,7 +417,7 @@ class Datagrid
      */
     public function initDatagridOptions()
     {
-        $this->datagridOptions = $this->datagridHelper->mergeOptions($this->datagridHelper->getConfig('datagrid_defaults'), $this->datagridOptions);
+        $this->datagridOptions = $this->datagridHelper->mergeOptions($this->datagridOptions, $this->datagridHelper->getConfig('datagrid_defaults'));
 
         return $this;
     }
