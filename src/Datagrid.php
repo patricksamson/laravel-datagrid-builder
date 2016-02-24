@@ -429,7 +429,7 @@ class Datagrid
      */
     public function getMethod()
     {
-        return $this->datagridOptions['attr']['data-method'];
+        return $this->getHtmlAttribute('data-method');
     }
 
     /**
@@ -440,7 +440,7 @@ class Datagrid
      */
     public function setMethod($method)
     {
-        $this->datagridOptions['attr']['data-method'] = $method;
+        $this->setHtmlAttribute('data-method', $method);
 
         return $this;
     }
@@ -452,7 +452,7 @@ class Datagrid
      */
     public function getUrl()
     {
-        return $this->datagridOptions['attr']['data-url'];
+        return $this->getHtmlAttribute('data-url');
     }
 
     /**
@@ -463,9 +463,46 @@ class Datagrid
      */
     public function setUrl($url)
     {
-        $this->datagridOptions['attr']['data-url'] = $url;
+        $this->setHtmlAttribute('data-url', $url);
 
         return $this;
+    }
+
+    /**
+     * Get single datagrid Html attribute.
+     *
+     * @param string $key
+     * @param $default
+     * @return mixed
+     */
+    public function getHtmlAttribute($tag, $default = null)
+    {
+        return array_get($this->datagridOptions['attr'], $tag, $default);
+    }
+
+    /**
+     * Set single Html attribute on datagrid.
+     *
+     * @param string $option
+     * @param mixed $value
+     *
+     * @return $this
+     */
+    public function setHtmlAttribute($tag, $value)
+    {
+        $this->datagridOptions['attr'][$tag] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Get all datagrid options.
+     *
+     * @return array
+     */
+    public function getHtmlAttributes()
+    {
+        return $this->datagridOptions['attr'];
     }
 
     /**
@@ -602,9 +639,10 @@ class Datagrid
                     ->make($datagridView)
                     ->with(compact('showStart', 'showColumns', 'showEnd'))
                     ->with('datagridOptions', $datagridOptions)
-                    ->with('tableAttrs', $this->datagridHelper->prepareAttributes($this->datagridOptions['attr']))
+                    ->with('tableAttrs', $this->datagridHelper->prepareAttributes($this->getHtmlAttributes()))
                     ->with('columns', $columns)
                     ->with('exclude', $this->exclude)
+                    ->with('data', $this->data)
                     ->render();
     }
 
